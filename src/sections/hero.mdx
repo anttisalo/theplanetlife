@@ -1,0 +1,18 @@
+---
+title: Hero
+sectionImages:
+  - ../images/globe.png
+  - ../images/tplLogo.png
+order: 1
+---
+import Hero from '../components/Hero';
+
+<Header logoFluid={props.embeddedImages.tplLogo.fluid} />
+
+<p id="firstLine">The condition in which future generations will inherit our planet depends on our attitude and the actions we take today.</p>
+
+<p id="secondLine">It’s time to unlock the world's knowledge and turn a sustainable society into a reality.</p>
+
+<Img fluid={props.embeddedImages.globe.fluid} alt="image" />
+
+export default Hero
