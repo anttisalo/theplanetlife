@@ -14,10 +14,16 @@
   },
   "eslintConfig": {
     "extends": [
-      "wesbos"
+      "wesbos",
+      "plugin:jsx-a11y/recommended"
+    ],
+    "plugins": [
+      "jsx-a11y"
     ],
     "rules": {
-      "react/prop-types": 0
+      "react/prop-types": 0,
+      "jsx-a11y/rule-name": "warn",
+      "react/button-has-type": 0
     }
   },
   "dependencies": {
@@ -40,6 +46,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^6.10.1",
     "reakit": "^1.2.5",
     "styled-components": "^5.2.0"
   },

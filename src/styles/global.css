@@ -6,20 +6,23 @@
 
 html {
   --color-tpl-white: #fff;
-  --color-body-text: #000;
+  --color-tpl-black: #25282D;
   --color-blue-dark: #0C198D;
   --color-blue-bright: #242AC0;
   --color-forest-green: #01883A;
   --color-tpl-pink: #FC345F;
+  --color-tpl-error: var(--color-tpl-pink);
+  --color-body-text: var(--color-tpl-black);
   --font-size-default: 100%;
   --font-family-body: 'Inter', sans-serif;
   --font-family-title: 'Inter', sans-serif;
-  --font-weight-body: '400';
-  --font-weight-link: '500';
-  --font-weight-title: '700';
+  --font-weight-body: 400;
+  --font-weight-link: 500;
+  --font-weight-title: 700;
   --line-height-body-text: 1.5;
   --line-height-title: 1.205;
-  --line-height-button: 1.125;
+  --line-height-inline-interaction: 1;
+  --color-cta-primary: var(--color-tpl-black);
 }
 
 body {
@@ -31,4 +34,12 @@ body {
 
 img {
   max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
 }

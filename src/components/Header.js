@@ -33,7 +33,7 @@ const NavItemStyled = styled.li`
   letter-spacing: 0.05em;
 `;
 
-export default function Header({ logoFluid }) {
+export default function Header() {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -52,7 +52,9 @@ export default function Header({ logoFluid }) {
   return (
     <HeaderStyled>
       <LogoStyled>
-        <img src={logo} atl="The planet life logo" />
+        <Link to="/" ariaLabel="Home" fontSize="0">
+          <img src={logo} alt="The planet life logo" />
+        </Link>
       </LogoStyled>
       <nav>
         <NavListStyled>

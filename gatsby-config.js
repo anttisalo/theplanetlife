@@ -47,7 +47,7 @@ module.exports = {
         fonts: [
           `IBM Plex Sans\:300`,
           `IBM Plex Mono\:700`,
-          `Inter\:400,500,700`,
+          `Inter\:300,400,500,700`,
         ],
         display: 'swap',
       },

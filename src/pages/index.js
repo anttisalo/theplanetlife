@@ -7,12 +7,15 @@ import Hero from '../components/Hero';
 import Title from '../components/Title';
 import 'normalize.css';
 import theme from '../../styled-theme';
+import JoinUsForm from '../components/JoinUsForm';
+import Para from '../components/Paragraph';
+import HowItWorks from '../components/HowItWorks';
 
 const MainStyled = styled.main`
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 3rem 5.25% 0;
+  padding: 3rem 5% 0;
   background-color: var(--color-tpl-white);
 
   @media (min-width: ${({ theme: { breakpoints } }) => breakpoints.m}) {
@@ -24,7 +27,7 @@ const MainStyled = styled.main`
 const SectionStyled = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-  padding: 10rem 0;
+  padding: 8rem 0;
   justify-items: center;
 `;
 
@@ -45,11 +48,10 @@ const SectionContentStyled = styled.div`
   }
 `;
 
-const SectionNameStyled = styled.div`
-  font-weight: 700;
-  color: var(--color-body-text);
+const SectionNameStyled = styled(Title)`
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-bottom: 4rem;
 
   @media (min-width: ${({ theme: { breakpoints } }) => breakpoints.m}) {
     margin-left: -3rem;
@@ -62,14 +64,44 @@ const SectionParagraphStyled = styled.p`
 `;
 
 const ButtonStyled = styled(Button)`
-  background-color: var(--color-blue-dark);
+  background-color: var(--color-cta-primary);
   color: var(--color-tpl-white);
   font-size: 1rem;
-  line-height: var(--line-height-button);
+  line-height: var(--line-height-inline-interaction);
   padding: 2rem 5rem;
   text-transform: uppercase;
   border: 0;
   margin-top: 5rem;
+  align-self: flex-start;
+`;
+
+const JoinOurMission = styled.section`
+  max-width: 55rem;
+  margin: 0 auto;
+  padding: 8rem 0;
+`;
+
+const CircleStyled = styled.div`
+  position: relative;
+  width: 100%;
+  background-color: #f2f4f8;
+  border-radius: 50%;
+  padding-top: 100%;
+`;
+
+const CircleContentStyled = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 9rem;
+  padding-right: 9rem;
+  text-align: center;
 `;
 
 export default function Home() {
@@ -83,7 +115,7 @@ export default function Home() {
           <SectionStyled>
             <IconStyled />
             <SectionContentStyled>
-              <SectionNameStyled>Community</SectionNameStyled>
+              <SectionNameStyled level={5}>Community</SectionNameStyled>
               <Title level={3}>From activism to growth and action</Title>
               <SectionParagraphStyled>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum
@@ -96,7 +128,7 @@ export default function Home() {
           </SectionStyled>
           <SectionStyled>
             <SectionContentStyled>
-              <SectionNameStyled>Entrepreneurs</SectionNameStyled>
+              <SectionNameStyled level={5}>Entrepreneurs</SectionNameStyled>
               <Title level={3}>Collaborating for innovation</Title>
               <SectionParagraphStyled>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum
@@ -104,14 +136,14 @@ export default function Home() {
                 puto. Si de re disceptari oportet, nulla mihi tecum, Cato,
                 potest esse dissensio.
               </SectionParagraphStyled>
-              <ButtonStyled>Get involved</ButtonStyled>
+              <ButtonStyled>Work with us</ButtonStyled>
             </SectionContentStyled>
             <IconStyled />
           </SectionStyled>
           <SectionStyled>
             <IconStyled />
             <SectionContentStyled>
-              <SectionNameStyled>Organisations</SectionNameStyled>
+              <SectionNameStyled level={5}>Organisations</SectionNameStyled>
 
               <Title level={3}>Enabling mechanisms for system change</Title>
               <SectionParagraphStyled>
@@ -120,10 +152,29 @@ export default function Home() {
                 puto. Si de re disceptari oportet, nulla mihi tecum, Cato,
                 potest esse dissensio.
               </SectionParagraphStyled>
-              <ButtonStyled>Get involved</ButtonStyled>
+              <ButtonStyled>Work with us</ButtonStyled>
             </SectionContentStyled>
           </SectionStyled>
-          <SectionStyled>fdafdsa</SectionStyled>
+          <HowItWorks />
+          <JoinOurMission>
+            <CircleStyled>
+              <CircleContentStyled>
+                <Title level={2}>Join our mission</Title>
+                <Para mb="0" mt="1.5rem">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum
+                  Lucius: Mihi vero ista valde probata sunt, quod item fratri
+                  puto. Si de re disceptari oportet, nulla mihi tecum.
+                </Para>
+                <JoinUsForm
+                  label="Your email"
+                  type="email"
+                  placeholder="your.email@example.com"
+                  errorMessage="Please, provide an email address"
+                  cta="Register"
+                />
+              </CircleContentStyled>
+            </CircleStyled>
+          </JoinOurMission>
           <SectionStyled>fdafdsa</SectionStyled>
           <SectionStyled>fdafdsa</SectionStyled>
         </MainStyled>
