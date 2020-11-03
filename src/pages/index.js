@@ -10,13 +10,14 @@ import theme from '../../styled-theme';
 import JoinUsForm from '../components/JoinUsForm';
 import Para from '../components/Paragraph';
 import HowItWorks from '../components/HowItWorks';
+import BgBall from '../components/BgBall';
 
 const MainStyled = styled.main`
+  position: relative;
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
   padding: 3rem 5% 0;
-  background-color: var(--color-tpl-white);
 
   @media (min-width: ${({ theme: { breakpoints } }) => breakpoints.m}) {
     padding-left: 9.825%;
@@ -111,6 +112,7 @@ export default function Home() {
         <Hero>
           <Header />
         </Hero>
+        <BgBall />
         <MainStyled>
           <SectionStyled>
             <IconStyled />

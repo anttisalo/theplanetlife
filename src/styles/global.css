@@ -30,6 +30,7 @@ body {
   font-size: var(--font-size-default);
   color: var(--color-body-text);
   line-height: var(--line-height-body-text);
+  background-color: var(--color-tpl-white);
 }
 
 img {
