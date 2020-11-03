@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const HeroStyled = styled.div`
   position: relative;
+  z-index: 1;
 `;
 
 const HeroScrollerStyled = styled.div`
