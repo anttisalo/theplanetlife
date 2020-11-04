@@ -8,7 +8,7 @@ const BallWrapper = styled.div`
 
 const BallStyled = styled.div`
   position: absolute;
-  top: 10rem;
+  top: 8rem;
   left: 50%;
   width: 200vw;
   height: 200vw;
@@ -27,7 +27,7 @@ export default function BgBall(params) {
 
   useEffect(() => {
     gsap.to(BallRef.current, {
-      y: `-=${window.innerHeight / 2}`,
+      y: `+=${window.innerHeight / 2}`,
       ease: 'none',
       scrollTrigger: {
         trigger: BallRef.current,
