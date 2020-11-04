@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LinkStyled = styled.a.attrs({
-  'aria-label': `${({ ariaLabel }) => ariaLabel};`,
-})`
+const LinkStyled = styled.a.attrs(
+  (props) =>
+    props.ariaLabel && {
+      'aria-label': props.ariaLabel,
+    }
+)`
   color: ${(props) => (props.color ? props.color : 'var(--color-tpl-white)')};
   text-decoration: none;
   font-size: ${(props) => (props.fontSize ? props.fontSize : '1rem')};
