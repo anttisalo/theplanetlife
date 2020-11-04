@@ -1,7 +1,8 @@
 export default {
   breakpoints: {
-    m: '48em',
     l: '80em',
+    m: '48em',
+    s: '30em',
   },
   headings: {
     1: {
