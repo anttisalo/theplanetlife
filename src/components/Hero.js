@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import globe from '../images/globe.png';
-
-gsap.registerPlugin(ScrollTrigger);
+import globe from '../static/globe.png';
 
 const HeroStyled = styled.div`
   position: relative;
@@ -16,7 +13,7 @@ const HeroScrollerStyled = styled.div`
   background-image: linear-gradient(
     to bottom,
     var(--color-blue-dark) 0%,
-    var(--color-blue-bright) 100%
+    var(--color-blue-light) 100%
   );
 `;
 
@@ -38,7 +35,7 @@ const TitleStyles = css`
   font-family: var(--font-family-body);
   font-size: 2rem;
   line-height: 3.5rem;
-  color: var(--color-tpl-white);
+  color: var(--color-white);
   margin: 0;
 `;
 
@@ -79,6 +76,7 @@ export default function Hero(props) {
         scrub: 1,
       },
     });
+
     tl.to('#titleOne', {
       opacity: 0,
       duration: 1,

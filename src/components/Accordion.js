@@ -5,25 +5,43 @@ import Title from './Title';
 
 const AccordionWrapper = styled.div`
   position: relative;
-  padding: 2rem 0;
-  padding-right: 6rem;
-  border-top: 3px solid #f2f4f8;
+  padding-bottom: 3.5rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 3px solid #f2f4f8;
+
+  &:last-child {
+    border: 0;
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    padding-left: 2rem;
+  }
 
   button {
     all: inherit;
     cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transition: color 150ms ease-in;
   }
 
   button svg {
     height: 1.25em;
-    flex: 1 0 auto;
-    position: absolute;
-    right: 0;
-    top: 2rem;
+    flex: 0 0 auto;
+    margin-left: auto;
   }
 
   button:focus svg {
-    outline: 2px solid;
+    padding: 3px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0px 3px currentColor;
+  }
+
+  button:not(.has-touch):hover {
+    color: var(--color-blue-light);
   }
 
   [aria-expanded='true'] .vertical {
@@ -39,30 +57,24 @@ const AccordionWrapper = styled.div`
   }
 `;
 
-const AccordionContent = styled.div``;
+const AccordionContent = styled.div`
+  margin-top: 1.5rem;
+`;
 
 export default function Accordion({ title, children }) {
-  const [expander, setExpanded] = useState();
-  const buttonRef = useRef();
+  const [expanded, setExpanded] = useState(false);
+  const btnRef = useRef();
 
   useEffect(() => {
-    const btn = buttonRef.current;
-    const heading = btn.parentNode;
-    const target = heading.nextElementSibling;
-
-    btn.onclick = () => {
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      console.log(expanded);
-
-      btn.setAttribute('aria-expanded', !expanded);
-      target.hidden = expanded;
+    btnRef.current.onclick = () => {
+      setExpanded(!expanded);
     };
   });
 
   return (
     <AccordionWrapper>
-      <Title level={4}>
-        <button ref={buttonRef} aria-expanded="false">
+      <Title level={4} color={expanded ? 'blue-light' : 'gray-dark'}>
+        <button ref={btnRef} aria-expanded={expanded}>
           {title}
           <svg viewBox="-25 -25 50 50" aria-hidden="true" focusable="false">
             <rect className="vertical" x="-1" y="-11" width="2" height="22" />
@@ -71,8 +83,10 @@ export default function Accordion({ title, children }) {
           </svg>
         </button>
       </Title>
-      <AccordionContent hidden>
-        <Para>{children}</Para>
+      <AccordionContent hidden={!expanded}>
+        <Para mt="0" mb="0">
+          {children}
+        </Para>
       </AccordionContent>
     </AccordionWrapper>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Link from './Link';
-import logo from '../images/tplLogo.png';
+import logo from '../static/tplLogo.png';
 
 const HeaderStyled = styled.header`
   position: relative;
@@ -26,7 +26,7 @@ const NavListStyled = styled.ul`
 const NavItemStyled = styled.li`
   float: left;
   margin-left: 3.5rem;
-  color: var(--color-tpl-white);
+  color: var(--color-white);
   font-weight: 500;
   text-decoration: none;
   text-transform: uppercase;

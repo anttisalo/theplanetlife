@@ -1,13 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const LinkStyled = styled.a.attrs({
-  'aria-label': `${({ ariaLabel }) => ariaLabel};`,
-})`
-  color: ${(props) => (props.color ? props.color : 'var(--color-tpl-white)')};
+const LinkStyled = styled.a.attrs(
+  (props) =>
+    props.ariaLabel && {
+      'aria-label': props.ariaLabel,
+    }
+)`
+  position: relative;
+  color: ${({ color, theme: { colors } }) =>
+    color ? `var(${colors[color].value})` : 'var(--color-white)'};
   text-decoration: none;
-  font-size: ${(props) => (props.fontSize ? props.fontSize : '1rem')};
-  line-height: 3.5;
+  font-size: ${({ fontSize }) => fontSize || '1rem'};
 `;
 
 export default function Link({ to, children, ...rest }) {
