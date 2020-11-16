@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components';
 
 const TitleStyled = styled.div`
   font-family: var(--font-family-title);
-  font-size: ${({ level, theme: { headings } }) => headings[level].fontSize};
-  font-weight: 700;
-  color: var(--color-body-text);
+  font-weight: 400;
+  color: ${({ color, theme: { colors } }) =>
+    color ? `var(${colors[color].value})` : 'var(--color-blue-light)'};
   line-height: var(--line-height-title);
   ${(props) =>
     props.margin &&

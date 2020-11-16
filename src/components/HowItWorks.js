@@ -4,80 +4,69 @@ import Accordion from './Accordion';
 import Title from './Title';
 
 const SectionStyled = styled.section`
-  padding: 10rem 0;
+  position: relative;
+  padding-top: 4rem;
 `;
 
 const SectionNameStyled = styled(Title)`
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    margin-bottom: 5rem;
+  }
 `;
 
 const OperationsStyled = styled.div`
-  display: flex;
-  flex-direction: column;
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    padding-left: 2rem;
+  }
 `;
 
-const GridRowStyled = styled.div`
-  display: grid;
-  grid-template-columns: 12rem 1fr;
-  grid-gap: 0 4rem;
-`;
-
-const CategoryStyled = styled.div`
-  text-align: right;
-  padding: 2rem 0;
-`;
-
-const CategoryNameStyled = styled(Title)`
-  text-transform: uppercase;
-`;
-
-const RunningNumberStyled = styled.div`
+const CategoryNameStyled = styled.span`
+  display: block;
   font-family: var(--font-family-title);
-  font-size: 2rem;
-  font-weight: 300;
-  color: var(--color-body-text);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--color-gray-mid);
+  line-height: var(--line-height-title);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 export default function HowItWorks() {
   return (
     <SectionStyled>
-      <SectionNameStyled level={5}>How it works</SectionNameStyled>
+      <SectionNameStyled level={2} color="pink">
+        How it works
+      </SectionNameStyled>
       <OperationsStyled>
-        <GridRowStyled>
-          <CategoryStyled>
-            <RunningNumberStyled>01</RunningNumberStyled>
-            <CategoryNameStyled level={5}>Research</CategoryNameStyled>
-          </CategoryStyled>
-          <Accordion title="We investigate and identify opportunities for future development">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
-            Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
-            disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
-          </Accordion>
-        </GridRowStyled>
-        <GridRowStyled>
-          <CategoryStyled>
-            <RunningNumberStyled>02</RunningNumberStyled>
-            <CategoryNameStyled level={5}>Projects</CategoryNameStyled>
-          </CategoryStyled>
-          <Accordion title="Projects are matched with a unique skillset of the community">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
-            Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
-            disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
-          </Accordion>
-        </GridRowStyled>
-        <GridRowStyled>
-          <CategoryStyled>
-            <RunningNumberStyled>03</RunningNumberStyled>
-            <CategoryNameStyled level={5}>Ventures</CategoryNameStyled>
-          </CategoryStyled>
-          <Accordion title="As a collective we support, create and grow startups">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
-            Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
-            disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
-          </Accordion>
-        </GridRowStyled>
+        <CategoryNameStyled>01. Research</CategoryNameStyled>
+        <Accordion title="We investigate and identify opportunities for future development">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
+          Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
+          disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
+        </Accordion>
+        <CategoryNameStyled>02. Projects</CategoryNameStyled>
+        <Accordion title="Projects are matched with a unique skillset of the community">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
+          Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
+          disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
+        </Accordion>
+        <CategoryNameStyled>03. Ventures</CategoryNameStyled>
+        <Accordion title="As a collective we support, create and grow startups">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
+          Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
+          disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
+        </Accordion>
       </OperationsStyled>
     </SectionStyled>
   );
