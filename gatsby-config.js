@@ -4,9 +4,10 @@ module.exports = {
   siteMetadata: {
     title: 'The Planet life',
     pages: [
-      { path: '#getInvolved', name: 'Get involved' },
+      { path: '#aboutUs', name: 'About' },
       { path: '#howItWorks', name: 'How it works' },
       { path: '#events', name: 'Events' },
+      { path: '#contact', name: 'Contact' },
     ],
   },
   plugins: [
@@ -33,8 +34,8 @@ module.exports = {
     },
     'gatsby-plugin-styled-components',
     'gatsby-plugin-mdx',
-    'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {

@@ -30,7 +30,7 @@ html {
   --font-weight-link: 500;
   --font-weight-title: 700;
   --line-height-body-text: 1.5;
-  --line-height-title: 1.205;
+  --line-height-title: 1.25;
   --line-height-inline-interaction: 1;
   --color-cta-primary: var(--color-blue-light);
 }
