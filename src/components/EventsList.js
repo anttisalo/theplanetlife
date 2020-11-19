@@ -29,7 +29,7 @@ const EventCardStyled = styled.div`
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
     width: 40vw;
-    flex: 1 0 auto;
+    flex: 0 0 auto;
     margin-right: 3vw;
     margin-bottom: 0;
   }

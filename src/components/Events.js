@@ -55,7 +55,7 @@ export default function Events({ eventsData }) {
   };
 
   return (
-    <SectionStyled>
+    <SectionStyled id="events">
       <SectionNameStyled level={2} color="pink">
         Events
       </SectionNameStyled>

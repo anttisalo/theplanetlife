@@ -44,7 +44,7 @@ const CategoryNameStyled = styled.span`
 
 export default function HowItWorks() {
   return (
-    <SectionStyled>
+    <SectionStyled id="howItWorks">
       <SectionNameStyled level={2} color="pink">
         How it works
       </SectionNameStyled>

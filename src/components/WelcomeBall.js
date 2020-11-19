@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { StaticImage } from 'gatsby-plugin-image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import welcomeImg from '../static/Welcome_pic.jpg';
@@ -46,26 +47,24 @@ const BallStyled = styled.div`
 `;
 
 export default function BgBall() {
-  const BallRef = useRef();
-  const ImgRef = useRef();
   const BREAKPOINT = 768;
 
   const setParallax = () => {
     if (window.innerWidth >= BREAKPOINT) {
-      gsap.to(BallRef.current, {
+      gsap.to('#greenBall', {
         yPercent: '3',
         scrollTrigger: {
-          trigger: BallRef.current,
+          trigger: '#greenBall',
           start: 'top bottom',
           end: 'bottom top',
           scrub: true,
         },
       });
 
-      gsap.to(ImgRef.current, {
+      gsap.to('#welcomeImg', {
         yPercent: '10',
         scrollTrigger: {
-          trigger: ImgRef.current,
+          trigger: '#welcomeImg',
           start: 'top bottom',
           end: 'bottom top',
           scrub: true,
@@ -95,11 +94,11 @@ export default function BgBall() {
         </defs>
       </svg>
       <img
-        ref={ImgRef}
+        id="welcomeImg"
         src={welcomeImg}
         alt="3d illustrated person riding a rocket"
       />
-      <BallStyled ref={BallRef} />
+      <BallStyled id="greenBall" />
     </BallWrapper>
   );
 }

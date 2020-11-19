@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { StaticImage } from 'gatsby-plugin-image';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -107,30 +108,12 @@ const LinkButtonStyled = styled(Link)`
   box-shadow: inset 0px 0px 0px 0px var(--color-blue-light);
   transition: box-shadow 150ms ease-in;
 
-  &:focus {
-    outline: none;
-  }
-
-  &:focus:after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 5px solid var(--color-blue-light);
-    left: 0;
-    top: 0px;
-    opacity: 0.3;
-    transform: scale3d(1.05, 1.2, 1);
-    border-radius: 8px;
-  }
-
   &:hover svg {
     transform: translateX(5px);
   }
 
-  &:active {
-    box-shadow: inset 0px 0px 0px 3px var(--color-blue-light);
+  .no-touch &:focus {
+    outline-color: var(--color-blue-light);
   }
 
   svg {
@@ -236,16 +219,25 @@ const JoinUsContentStyled = styled.div`
 `;
 
 export default function Home() {
-  useEffect(() => {});
+  useEffect(() => {
+    const touchsupport =
+      // eslint-disable-next-line prettier/prettier
+      ('ontouchstart' in window) ||
+      window.navigator.maxTouchPoints > 0 ||
+      window.navigator.msMaxTouchPoints > 0;
+
+    if (!touchsupport) {
+      document.documentElement.classList.add('no-touch');
+    }
+  });
 
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        {/* <Hero>
+        <Hero>
           <Header />
-        </Hero> */}
-        <div style={{ height: '100vh' }} />
-        <WelcomeStyled>
+        </Hero>
+        <WelcomeStyled id="aboutUs">
           <WelcomeBall />
           <SectionContentStyled>
             <SectionNameStyled level={2} color="pink">

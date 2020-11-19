@@ -3,16 +3,12 @@ import styled from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const BallWrapper = styled.div`
-  position: relative;
-`;
-
 const BallStyled = styled.div`
-  position: absolute;
-  top: 3rem;
-  left: -40%;
   width: 200vmax;
   height: 200vmax;
+  position: absolute;
+  top: 8vmin;
+  left: 50%;
   border-radius: 50%;
   background: linear-gradient(
     194deg,
@@ -20,19 +16,18 @@ const BallStyled = styled.div`
     rgba(255, 255, 255, 0)
   );
   z-index: 0;
+  transform: translateX(-35%);
 `;
 
 export default function BgBall() {
-  const BallRef = useRef();
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.to(BallRef.current, {
+    gsap.to('#bgBall', {
       yPercent: '20',
       ease: 'none',
       scrollTrigger: {
-        trigger: BallRef.current,
+        trigger: '#bgBall',
         start: 'top bottom',
         end: 'bottom top',
         scrub: true,
@@ -40,9 +35,5 @@ export default function BgBall() {
     });
   });
 
-  return (
-    <BallWrapper>
-      <BallStyled ref={BallRef} />
-    </BallWrapper>
-  );
+  return <BallStyled id="bgBall" />;
 }
