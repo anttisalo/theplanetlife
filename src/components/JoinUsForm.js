@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useForm } from 'react-hook-form';
+import addToMailchimp from 'gatsby-plugin-mailchimp';
 
 const FormStyled = styled.form`
   display: flex;
@@ -22,7 +22,11 @@ const InputStyled = styled.input.attrs({
 
 const ErrorStyled = styled.span`
   color: var(--color-error);
-  margin-top: 0.5rem;
+  max-width: 100%;
+`;
+
+const SuccessStyled = styled.span`
+  color: var(--color-green-mid);
 `;
 
 const SubmitStyled = styled.button`
@@ -43,26 +47,50 @@ const SubmitStyled = styled.button`
   }
 `;
 
-export default function JoinUsForm({
-  label,
-  type,
-  placeholder,
-  errorMessage,
-  cta,
-}) {
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
+export default function JoinUsForm() {
+  const [email, setEmail] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    addToMailchimp(email)
+      .then((data) => {
+        if (data.result !== 'success') {
+          throw data.msg;
+        }
+
+        setSuccessMsg(data.msg);
+      })
+      .catch((error) => {
+        setErrorMsg(error);
+      });
+  };
+
+  const handleChange = (e) => {
+    if (errorMsg.length || successMsg.length) {
+      setErrorMsg('');
+      setSuccessMsg('');
+    }
+
+    setEmail(e.target.value);
+  };
 
   return (
-    <FormStyled onSubmit={handleSubmit(onSubmit)}>
+    <FormStyled onSubmit={handleSubmit}>
       <InputStyled
-        type={type}
+        type="email"
         name="email"
-        ref={register({ required: true })}
-        placeholder={placeholder}
+        placeholder="Please, enter your email address to subscribe"
+        value={email}
+        onChange={handleChange}
       />
-      {errors.email && <ErrorStyled>{errorMessage}</ErrorStyled>}
-      <SubmitStyled>{cta}</SubmitStyled>
+      {errorMsg && (
+        <ErrorStyled dangerouslySetInnerHTML={{ __html: errorMsg }} />
+      )}
+      {successMsg && <SuccessStyled>{successMsg}</SuccessStyled>}
+      <SubmitStyled>Subscribe</SubmitStyled>
     </FormStyled>
   );
 }
