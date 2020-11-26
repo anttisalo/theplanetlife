@@ -356,13 +356,7 @@ export default function Home() {
                   Lucius: Mihi vero ista valde probata sunt, quod item fratri
                   puto. Si de re disceptari oportet, nulla mihi tecum.
                 </Para>
-                <JoinUsForm
-                  label="Your email"
-                  type="email"
-                  placeholder="your.email@example.com"
-                  errorMessage="Please, provide an email address"
-                  cta="Register"
-                />
+                <JoinUsForm />
               </JoinUsContentStyled>
             </JoinOurMissionWrapper>
           </JoinOurMission>

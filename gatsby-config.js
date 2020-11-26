@@ -47,5 +47,12 @@ module.exports = {
         display: 'swap',
       },
     },
+    {
+      resolve: 'gatsby-plugin-mailchimp',
+      options: {
+        endpoint:
+          'https://life.us20.list-manage.com/subscribe/post?u=1859c73ef91d857c5b0271135&amp;id=0a15e83427',
+      },
+    },
   ],
 };
