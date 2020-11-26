@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { StaticImage } from 'gatsby-plugin-image';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -21,18 +20,17 @@ import eventsData from '../events/events.yaml';
 
 const MainStyled = styled.main`
   position: relative;
-  width: 100%;
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 3rem 5% 0;
 `;
 
 const SectionStyled = styled.section`
   position: relative;
+  max-width: 80rem;
+  margin: 0 auto 6rem;
+  padding: 3rem 5% 0;
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(calc(18.25rem - 37.5px), 1fr));
   grid-gap: 2rem;
-  margin-bottom: 6rem;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -44,13 +42,15 @@ const SectionStyled = styled.section`
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     grid-gap: 3rem;
-    padding: 4rem 0;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
     margin-bottom: 0;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromRegularDesktopUp}) {
-    padding: 8rem 0;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
   }
 `;
 
@@ -93,27 +93,43 @@ const SectionNameStyled = styled(Title)`
   margin-bottom: 4rem;
 `;
 
+const BgTransitionTitle = styled(Title)`
+  transition: color 300ms ease-in;
+
+  .bg-blue & {
+    color: var(--color-white);
+  }
+`;
+
+const BgTransitionPara = styled(Para)`
+  transition: color 300ms ease-in;
+
+  .bg-blue & {
+    color: var(--color-white);
+  }
+`;
+
 const LinkButtonStyled = styled(Link)`
   background-color: transparent;
   font-weight: 500;
   line-height: var(--line-height-inline-interaction);
-  padding: 2rem 4rem;
+  padding: 1.375rem 4rem;
   text-transform: uppercase;
-  border: 1px solid var(--color-blue-light);
+  border: 1px solid currentColor;
   margin-top: 3rem;
   align-self: flex-start;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 0px 0px 0px 0px var(--color-blue-light);
-  transition: box-shadow 150ms ease-in;
+  box-shadow: inset 0px 0px 0px 0px currentColor;
+  transition: box-shadow, color, 150ms ease-in;
 
   &:hover svg {
     transform: translateX(5px);
   }
 
   .no-touch &:focus {
-    outline-color: var(--color-blue-light);
+    outline-color: currentColor;
   }
 
   svg {
@@ -128,13 +144,17 @@ const LinkButtonStyled = styled(Link)`
     padding-right: 5rem;
     padding-left: 5rem;
   }
+
+  .bg-blue & {
+    color: var(--color-white);
+  }
 `;
 
 const JoinOurMission = styled.section`
   position: relative;
   max-width: 55rem;
   min-height: 100vw;
-  margin: 50% auto;
+  margin: 20% 1.5rem 50%;
   display: flex;
   align-items: center;
 
@@ -157,11 +177,11 @@ const JoinOurMission = styled.section`
   &:before {
     content: '';
     display: block;
-    width: 200%;
+    width: 0;
     position: absolute;
     top: 50%;
     left: 50%;
-    padding-top: 200%;
+    padding-top: 0;
     border-radius: 50%;
     background-color: pink;
     transform: translate(-50%, -50%);
@@ -246,12 +266,12 @@ export default function Home() {
             <Title level={3}>
               We are a creative hub working towards a brighter future.
             </Title>
-            <Para mt="1.5" mb="0">
+            <Para mt="1.5rem" mb="0">
               Our mission is to support and accelerate the ambition of climate
               solutions around the world through the spirit of community
               knowledge and sharing.
             </Para>
-            <Para mt="1.5" mb="0">
+            <Para mt="1.5rem" mb="0">
               As a platform for collaborative innovation, we engage with people
               and organisations who want to build a brighter future for our
               planet and society, together.
@@ -282,7 +302,7 @@ export default function Home() {
                 Building a community
               </SectionNameStyled>
               <Title level={3}>From activism to growth and action</Title>
-              <Para mt="1.5" mb="0">
+              <Para mt="1.5rem" mb="0">
                 Join our community and contribute to environmental projects
                 tailored to your interest. We enable each individual to develop
                 their personal potential and grow the opportunity to build a new
@@ -308,7 +328,7 @@ export default function Home() {
                 Supporting entrepreneurs
               </SectionNameStyled>
               <Title level={3}>Collaborating for innovation</Title>
-              <Para mt="1.5" mb="0">
+              <Para mt="1.5rem" mb="0">
                 We provide a space for young startups and entrepreneurs to
                 connect and collaborate. Incubate your idea and benefit from the
                 experience of your peers. We work with people who have
@@ -330,14 +350,16 @@ export default function Home() {
                 Partner with organisations
               </SectionNameStyled>
 
-              <Title level={3}>Enabling mechanisms for system change</Title>
-              <Para mt="1.5" mb="0">
+              <BgTransitionTitle level={3}>
+                Enabling mechanisms for system change
+              </BgTransitionTitle>
+              <BgTransitionPara mt="1.5rem" mb="0">
                 We support businesses to thrive in a new economy. Through hyper
                 customised workshops and tailored programs we unlock the
                 knowledge of our community to enable solutions that are grounded
                 in research and collaboration. To explore potential partnership
                 opportunities, get in touch.
-              </Para>
+              </BgTransitionPara>
               <LinkButtonStyled to="#joinOurMission" color="blue-light">
                 <span>Work with us</span>
                 <svg viewBox="0 0 11 18">
@@ -352,9 +374,9 @@ export default function Home() {
               <JoinUsContentStyled>
                 <Title level={3}>Join our mission</Title>
                 <Para mb="0" mt="1.5rem">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum
-                  Lucius: Mihi vero ista valde probata sunt, quod item fratri
-                  puto. Si de re disceptari oportet, nulla mihi tecum.
+                  Together we can combine our forces. Are you eager to make a
+                  change and contribute to a healthy planet and society?
+                  Register below and stay up to date on our progress and events.
                 </Para>
                 <JoinUsForm />
               </JoinUsContentStyled>
