@@ -123,6 +123,11 @@ const NavLinkStyled = styled(Link)`
   .no-touch &:hover:after {
     transform: scaleY(1);
   }
+
+  .no-touch &:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+  }
 `;
 
 const LinkButtonStyled = styled(Link)`
@@ -138,6 +143,11 @@ const LinkButtonStyled = styled(Link)`
 
   &:hover {
     box-shadow: inset 0px 0px 0px 2px var(--color-white);
+  }
+
+  .no-touch &:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>

@@ -19,6 +19,11 @@ const InputStyled = styled.input.attrs({
   width: 100%;
   border-radius: 0;
   box-shadow: none;
+
+  .no-touch &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.5);
+    outline-offset: 2px;
+  }
 `;
 
 const ErrorStyled = styled.span`
@@ -40,6 +45,11 @@ const SubmitStyled = styled.button`
   text-transform: uppercase;
   border: 0;
   margin-top: 1rem;
+
+  .no-touch &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.5);
+    outline-offset: 2px;
+  }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {

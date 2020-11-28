@@ -90,7 +90,7 @@ const SectionContentStyled = styled.div`
 const SectionNameStyled = styled(Title)`
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 `;
 
 const BgTransitionTitle = styled(Title)`
@@ -113,23 +113,30 @@ const LinkButtonStyled = styled(Link)`
   background-color: transparent;
   font-weight: 500;
   line-height: var(--line-height-inline-interaction);
-  padding: 1.375rem 4rem;
   text-transform: uppercase;
-  border: 1px solid currentColor;
   margin-top: 3rem;
-  align-self: flex-start;
+  padding: 0.5rem 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: inset 0px 0px 0px 0px currentColor;
-  transition: box-shadow, color, 150ms ease-in;
+  align-self: flex-start;
+
+  span {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  &:hover span {
+    padding-bottom: 1px;
+    border-bottom: 1px solid currentColor;
+  }
 
   &:hover svg {
-    transform: translateX(5px);
+    transform: translateX(10px);
   }
 
   .no-touch &:focus {
-    outline-color: currentColor;
+    outline: 2px solid rgba(43, 30, 200, 0.25);
+    outline-offset: 2px;
   }
 
   svg {
@@ -137,12 +144,6 @@ const LinkButtonStyled = styled(Link)`
     height: 1.25em;
     margin-left: 1rem;
     transition: transform 150ms ease-in-out;
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    padding-right: 5rem;
-    padding-left: 5rem;
   }
 
   .bg-blue & {
@@ -292,12 +293,6 @@ export default function Home() {
               and organisations who want to build a brighter future for our
               planet and society, together.
             </Para>
-            <LinkButtonStyled to="#joinOurMission" color="blue-light">
-              <span>Get involved</span>
-              <svg viewBox="0 0 11 18">
-                <path d="M1.72031 0.209961L0.640313 1.28246L8.35031 8.99246L0.632812 16.7025L1.70531 17.775L9.95531 9.52496L10.4653 8.98496L9.94781 8.44496L1.72031 0.209961Z" />
-              </svg>
-            </LinkButtonStyled>
           </SectionContentStyled>
         </WelcomeStyled>
         <SloganStyled>
