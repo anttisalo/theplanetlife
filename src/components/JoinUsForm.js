@@ -13,11 +13,12 @@ const FormStyled = styled.form`
 const InputStyled = styled.input.attrs({
   'aria-label': 'Email address',
 })`
-  padding: 2rem;
+  padding: 1.375rem 1rem;
   background-color: var(--color-white);
   border: 1px solid #bcc1cb;
   width: 100%;
-  margin-bottom: 0.5rem;
+  border-radius: 0;
+  box-shadow: none;
 `;
 
 const ErrorStyled = styled.span`
@@ -35,14 +36,14 @@ const SubmitStyled = styled.button`
   color: var(--color-white);
   font-size: 1rem;
   line-height: var(--line-height-inline-interaction);
-  padding: 2rem 5rem;
+  padding: 1.5rem 5rem;
   text-transform: uppercase;
   border: 0;
   margin-top: 1rem;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
     width: auto;
   }
 `;
@@ -82,7 +83,7 @@ export default function JoinUsForm() {
       <InputStyled
         type="email"
         name="email"
-        placeholder="Please, enter your email address to subscribe"
+        placeholder="Your email address"
         value={email}
         onChange={handleChange}
       />

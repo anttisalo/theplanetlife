@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Accordion from './Accordion';
 import Title from './Title';
 
 const SectionStyled = styled.section`
   position: relative;
-  padding-top: 4rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 27vmin 5% 4rem;
 `;
 
 const SectionNameStyled = styled(Title)`
@@ -35,6 +39,12 @@ const CategoryNameStyled = styled.span`
   line-height: var(--line-height-title);
   text-transform: uppercase;
   margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  transition: color 300ms ease-in;
+
+  .bg-blue & {
+    color: var(--color-white);
+  }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
@@ -43,6 +53,29 @@ const CategoryNameStyled = styled.span`
 `;
 
 export default function HowItWorks() {
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const layoutWrapper = document.getElementById('layoutWrapper');
+    ScrollTrigger.create({
+      trigger: '#howItWorks',
+      start: 'top center',
+      end: 'bottom center',
+      scrub: 1,
+      onEnter: () => {
+        layoutWrapper.classList.add('bg-blue');
+      },
+      onLeave: () => {
+        layoutWrapper.classList.remove('bg-blue');
+      },
+      onEnterBack: () => {
+        layoutWrapper.classList.add('bg-blue');
+      },
+      onLeaveBack: () => {
+        layoutWrapper.classList.remove('bg-blue');
+      },
+    });
+  });
+
   return (
     <SectionStyled id="howItWorks">
       <SectionNameStyled level={2} color="pink">
