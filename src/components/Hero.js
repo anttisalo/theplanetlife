@@ -3,37 +3,45 @@ import styled, { css } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import globe from '../static/globe.png';
-import Title from './Title';
+import Para from './Paragraph';
 
 const HeroStyled = styled.div`
   position: relative;
-  height: 200vh;
   background-image: linear-gradient(
     to bottom,
     var(--color-blue-dark) 0%,
-    var(--color-blue-light) 100%
+    var(--color-blue-light) 75%
   );
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    height: 200vh;
+  }
 `;
 
 const ScrollingContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100vh;
+  padding-bottom: 30vmin;
 
-  .animation-end & {
-    position: absolute;
-    top: auto;
-    bottom: 0;
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .animation-end & {
+      position: absolute;
+      top: auto;
+      bottom: 0;
+    }
   }
 `;
 
 const titleDefaultStyle = css`
-  width: 80%;
-  font-size: 1.25rem;
-  position: absolute;
-  max-width: 27rem;
+  font-size: 1.125rem;
+  color: var(--color-white);
+  padding-left: 2rem;
+  padding-right: 2rem;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -42,18 +50,17 @@ const titleDefaultStyle = css`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    max-width: 25rem;
   }
 `;
 
-const Title1 = styled(Title)`
+const Title1 = styled(Para)`
   ${titleDefaultStyle};
-  left: 10%;
-  bottom: 15%;
+  margin: 4.5rem 0 0;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
-    bottom: auto;
+    left: 10%;
+    position: absolute;
     top: 80vw;
   }
 
@@ -65,48 +72,75 @@ const Title1 = styled(Title)`
   }
 `;
 
-const Title2 = styled(Title)`
+const Title2 = styled(Para)`
   ${titleDefaultStyle};
-  left: 10%;
-  bottom: 7%;
-  text-align: right;
-  opacity: 0;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
-    bottom: auto;
-    left: auto;
-    right: 20%;
+    position: absolute;
+    left: 10%;
+    opacity: 0;
     top: 90vw;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     left: 40%;
-    right: auto;
     top: 40%;
     transform: translateX(-78%);
-    text-align: left;
   }
 `;
 
 const GlobeStyled = styled.img`
-  position: absolute;
-  width: 70%;
+  display: block;
+  width: 90%;
   max-width: 600px;
-  left: 50%;
-  top: 17%;
-  transform: translateX(-50%);
+  margin: 2rem auto;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
-    breakpoints.fromTabletPortraitUp}) {
+      breakpoints.fromTabletPortraitUp}) {
+    position: absolute;
     width: 50%;
+    left: 50%;
+    top: 17%;
+    transform: translateX(-50%);
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
-    breakpoints.fromTabletLandscapeUp}) {
-        width: 45%;
-        transform: translateX(-10%);
+      breakpoints.fromTabletLandscapeUp}) {
+    width: 45%;
+    transform: translateX(-10%);
+  }
+`;
+
+const ClippingSvg = styled.svg`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  fill: var(--color-white);
+`;
+
+const ArrowDownWrapper = styled.div`
+  background-color: var(--color-white);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    fill: var(--color-blue-light);
+    width: 2em;
+    height: 2em;
+  }
 `;
 
 export default function Hero(props) {
@@ -115,6 +149,7 @@ export default function Hero(props) {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+
     const tl = gsap.timeline({
       defaults: {
         scrollTrigger: {
@@ -135,8 +170,10 @@ export default function Hero(props) {
       },
     });
 
-    tl.to('#title1', { opacity: 0, duration: 2 });
-    tl.to('#title2', { opacity: 1, duration: 2 });
+    if (window.innerWidth >= 600) {
+      tl.to('#title1', { opacity: 0, duration: 2 });
+      tl.to('#title2', { opacity: 1, duration: 2 });
+    }
   });
 
   return (
@@ -148,15 +185,31 @@ export default function Hero(props) {
           depends on our attitude and the actions we take today.
         </Title1>
         <Title2 level={1} id="title2" color="white">
-          The condition in which future generations will inherit our planet
-          depends on our attitude and the actions we take today.
+          It’s time to unlock the world's knowledge and turn a sustainable
+          society into a reality.
         </Title2>
         <GlobeStyled
           id="globe"
           src={globe}
           alt="Illustrated image of a globe"
         />
+        <ClippingSvg
+          viewBox="0 0 375 95"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+        >
+          <path d="M0 90.8412L0 95H375V0H374.932C284.687 59.4221 176.631 94 60.5 94C40.0656 94 19.8813 92.9294 0 90.8412Z" />
+        </ClippingSvg>
       </ScrollingContainer>
+      <ArrowDownWrapper>
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            fillRule="evenodd"
+            d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </ArrowDownWrapper>
     </HeroStyled>
   );
 }
