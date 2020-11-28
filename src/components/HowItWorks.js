@@ -9,7 +9,7 @@ const SectionStyled = styled.section`
   position: relative;
   max-width: 80rem;
   margin: 0 auto;
-  padding: 4rem 5%;
+  padding: 27vmin 5% 4rem;
 `;
 
 const SectionNameStyled = styled(Title)`

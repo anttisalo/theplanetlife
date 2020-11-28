@@ -218,6 +218,22 @@ const JoinOurMissionWrapper = styled.div`
   padding-top: 100%;
 `;
 
+const JoinUsTitle = styled(Title)`
+  transition: color 300ms ease-in;
+
+  .bg-blue & {
+    color: var(--color-white);
+  }
+`;
+
+const JoinUsPara = styled(Para)`
+  transition: color 300ms ease-in;
+
+  .bg-blue & {
+    color: var(--color-white);
+  }
+`;
+
 const JoinUsContentStyled = styled.div`
   position: absolute;
   top: 50%;
@@ -343,7 +359,7 @@ export default function Home() {
               </LinkButtonStyled>
             </SectionContentStyled>
           </SectionStyled>
-          <SectionStyled>
+          <SectionStyled style={{ paddingBottom: '30vmin' }}>
             <img src={OrganisationsImg} alt="3d illustrated mountain climber" />
             <SectionContentStyled>
               <SectionNameStyled level={2} color="pink">
@@ -372,12 +388,12 @@ export default function Home() {
           <JoinOurMission id="joinOurMission">
             <JoinOurMissionWrapper>
               <JoinUsContentStyled>
-                <Title level={3}>Join our mission</Title>
-                <Para mb="0" mt="1.5rem">
+                <JoinUsTitle level={3}>Join our mission</JoinUsTitle>
+                <JoinUsPara mb="0" mt="1.5rem">
                   Together we can combine our forces. Are you eager to make a
                   change and contribute to a healthy planet and society?
                   Register below and stay up to date on our progress and events.
-                </Para>
+                </JoinUsPara>
                 <JoinUsForm />
               </JoinUsContentStyled>
             </JoinOurMissionWrapper>
