@@ -78,13 +78,9 @@ const SloganStyled = styled.div`
 
 const SectionContentStyled = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
   padding-top: 2rem;
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    display: flex;
-    flex-direction: column;
-  }
 `;
 
 const SectionNameStyled = styled(Title)`
