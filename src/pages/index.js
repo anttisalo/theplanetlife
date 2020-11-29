@@ -59,6 +59,16 @@ const WelcomeStyled = styled(SectionStyled)`
   margin: 3rem auto;
   padding-right: 5%;
   padding-left: 5%;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    margin-top: 25vmin;
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromRegularDesktopUp}) {
+    margin-top: 35vmin;
+  }
 `;
 
 const SloganStyled = styled.div`

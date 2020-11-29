@@ -4,7 +4,6 @@ module.exports = {
   siteMetadata: {
     title: 'The Planet life',
     pages: [
-      { path: '#aboutUs', name: 'About' },
       { path: '#howItWorks', name: 'How it works' },
       { path: '#events', name: 'Events' },
       { path: '#contact', name: 'Contact' },

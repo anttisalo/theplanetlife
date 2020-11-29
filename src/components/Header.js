@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Link from './Link';
 import logo from '../static/tplLogo.png';
@@ -14,7 +14,13 @@ const HeaderStyled = styled.header`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
-    padding: 3rem 5%;
+    padding: 2rem 3%;
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    padding-right: 5%;
+    padding-left: 5%;
   }
 `;
 
@@ -87,7 +93,16 @@ const NavItemStyled = styled.li`
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: var(--line-height-inline-interaction);
-  margin: 0.875rem 0;
+  margin: 1.25rem 0;
+
+  &:last-child {
+    display: none;
+
+    @media (min-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.fromTabletPortraitUp}) {
+      display: block;
+    }
+  }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -108,6 +123,15 @@ const NavItemStyled = styled.li`
 `;
 
 const NavLinkStyled = styled(Link)`
+  font-size: 0.875rem;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      // eslint-disable-next-line prettier/prettier
+      breakpoints.fromTabletPortraitUp}) and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    font-size: 0.75rem;
+  }
+
   .no-touch &:after {
     content: '';
     display: block;
@@ -134,20 +158,28 @@ const LinkButtonStyled = styled(Link)`
   display: inline-block;
   background-color: transparent;
   line-height: var(--line-height-inline-interaction);
-  padding: 1rem;
+  padding: 1.25rem;
+  padding-top: 1.375rem;
   text-transform: uppercase;
-  border: 1px solid var(--color-white);
   margin: 0;
-  box-shadow: inset 0px 0px 0px 0px var(--color-white);
-  transition: box-shadow 150ms ease-in;
+  background-color: var(--color-white);
+  color: var(--color-blue-light);
+  transition: background-color 150ms ease-in;
 
-  &:hover {
-    box-shadow: inset 0px 0px 0px 2px var(--color-white);
+  .no-touch &:hover {
+    background-color: #d0d4fb;
   }
 
   .no-touch &:focus {
     outline: 2px solid rgba(255, 255, 255, 0.5);
     outline-offset: 2px;
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      // eslint-disable-next-line prettier/prettier
+      breakpoints.fromTabletPortraitUp}) and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    font-size: 0.75rem;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
@@ -261,9 +293,7 @@ export default function Header() {
           <NavListStyled>
             {pages.map(({ path, name }, index) => (
               <NavItemStyled key={index}>
-                <NavLinkStyled to={path} fontSize="0.875rem">
-                  {name}
-                </NavLinkStyled>
+                <NavLinkStyled to={path}>{name}</NavLinkStyled>
               </NavItemStyled>
             ))}
             <NavItemStyled>
