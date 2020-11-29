@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { StaticImage } from 'gatsby-plugin-image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import welcomeImg from '../static/Welcome_pic.jpg';

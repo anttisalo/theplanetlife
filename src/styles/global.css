@@ -24,7 +24,7 @@ html {
   --color-error: var(--color-pink);
   --color-body-text: var(--color-black);
   --font-size-default: 100%;
-  --font-family-body: 'Inter', sans-serif;
+  --font-family-body: 'Atkinson', sans-serif;
   --font-family-title: 'Inter', sans-serif;
   --font-weight-body: 400;
   --font-weight-link: 500;
