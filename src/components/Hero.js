@@ -91,7 +91,6 @@ const GlobeStyled = styled.iframe`
   display: block;
   width: 90vmin;
   height: 90vmin;
-  max-width: 575px;
   margin: 4rem auto 2rem;
   border: 0;
 
@@ -107,7 +106,17 @@ const GlobeStyled = styled.iframe`
     position: absolute;
     left: 50%;
     top: 25%;
-    width: 45%;
+    width: 60vmin;
+    height: 60vmin;
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromRegularDesktopUp}) {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    width: 70vmin;
+    height: 70vmin;
   }
 `;
 
@@ -155,6 +164,11 @@ const ArrowDownWrapper = styled.div`
     fill: var(--color-blue-light);
     width: 2em;
     height: 2em;
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromBigDesktopUp}) {
+    bottom: 8%;
   }
 `;
 

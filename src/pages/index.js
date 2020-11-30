@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
@@ -8,15 +10,15 @@ import JoinUsForm from '../components/JoinUsForm';
 import Para from '../components/Paragraph';
 import HowItWorks from '../components/HowItWorks';
 import BgBall from '../components/BgBall';
-import WelcomeBall from '../components/WelcomeBall';
+import Welcome from '../components/Welcome';
 import theme from '../../styled-theme';
-import 'normalize.css';
 import Events from '../components/Events';
 import CommunityImg from '../static/3D_Community.png';
 import EntrepreneursImg from '../static/3D_Entrepreneurs.png';
 import OrganisationsImg from '../static/3D_Organisations.png';
 import Link from '../components/Link';
 import eventsData from '../events/events.yaml';
+import 'normalize.css';
 
 const MainStyled = styled.main`
   position: relative;
@@ -33,13 +35,6 @@ const SectionStyled = styled.section`
   grid-gap: 2rem;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletPortraitUp}) {
-    .flip-order {
-      order: 1;
-    }
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     grid-gap: 3rem;
     padding-top: 4rem;
@@ -54,35 +49,67 @@ const SectionStyled = styled.section`
   }
 `;
 
-const WelcomeStyled = styled(SectionStyled)`
-  max-width: 80rem;
-  margin: 3rem auto;
-  padding-right: 5%;
-  padding-left: 5%;
+const SectionImageWrapper = styled.div`
+  position: relative;
+  padding: 2rem;
+  --translateY: 0%;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    margin-top: 25vmin;
+      breakpoints.fromTabletPortraitUp}) {
+    &.flip-order {
+      order: 1;
+    }
   }
 
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromRegularDesktopUp}) {
-    margin-top: 35vmin;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 10%;
+    width: 70vmin;
+    height: 70vmin;
+    border-radius: 50%;
+    background-image: linear-gradient(
+      110deg,
+      var(--color-blue-dark),
+      var(--color-blue-light) 80%
+    );
+    transform: translateY(var(--translateY));
+
+    @media (min-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.fromTabletPortraitUp}) {
+      width: 35vmin;
+      height: 35vmin;
+    }
+
+    @media (min-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.fromTabletLandscapeUp}) {
+      width: 45vmin;
+      height: 45vmin;
+    }
   }
+`;
+
+const SectionImage = styled.img`
+  position: relative;
 `;
 
 const SloganStyled = styled.div`
   position: relative;
-  max-width: 80rem;
-  margin: 10rem auto 7rem;
+  max-width: 35rem;
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin: 30vmax auto;
+  padding: 0 5vmin;
 
-  h3 {
-    margin: 0 auto;
-    width: 90%;
-    max-width: 25rem;
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    padding: 0;
+    margin-top: 30vmin;
+    margin-bottom: 20vmin;
   }
 `;
 
@@ -272,6 +299,26 @@ export default function Home() {
     if (!touchsupport) {
       document.documentElement.classList.add('no-touch');
     }
+
+    gsap.registerPlugin(ScrollTrigger);
+    if (window.matchMedia('(min-width: 900px)').matches) {
+      gsap.utils.toArray('.parallax-combo').forEach((container) => {
+        const img = container.querySelector('img');
+        const tl = gsap.timeline({
+          defaults: {
+            scrollTrigger: {
+              trigger: container,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          },
+        });
+
+        tl.to(img, { yPercent: '20' });
+        tl.to(container, { '--translateY': '10%' });
+      });
+    }
   });
 
   return (
@@ -280,40 +327,22 @@ export default function Home() {
         <Hero>
           <Header />
         </Hero>
-        <WelcomeStyled id="aboutUs">
-          <WelcomeBall />
-          <SectionContentStyled>
-            <SectionNameStyled level={2} color="pink">
-              Welcome
-            </SectionNameStyled>
-            <Title level={3}>
-              We are a creative hub working towards a brighter future.
-            </Title>
-            <Para mt="1.5rem" mb="0">
-              Our mission is to support and accelerate the ambition of climate
-              solutions around the world through the spirit of community
-              knowledge and sharing.
-            </Para>
-            <Para mt="1.5rem" mb="0">
-              As a platform for collaborative innovation, we engage with people
-              and organisations who want to build a brighter future for our
-              planet and society, together.
-            </Para>
-          </SectionContentStyled>
-        </WelcomeStyled>
-        <SloganStyled>
-          <Title level={3} color="black">
-            We bridge the gap between cause and motivation by matching projects
-            to people.
-          </Title>
-        </SloganStyled>
         <MainStyled id="main">
-          <BgBall />
-          <SectionStyled>
-            <img
-              src={CommunityImg}
-              alt="3d illustrated person riding a rocket"
-            />
+          <Welcome />
+          <SloganStyled>
+            <Title level={3} color="black">
+              We bridge the gap between cause and motivation by matching
+              projects to people.
+            </Title>
+          </SloganStyled>
+          <SectionStyled id="whatWeDo">
+            <BgBall />
+            <SectionImageWrapper className="parallax-combo">
+              <SectionImage
+                src={CommunityImg}
+                alt="3d illustrated person riding a rocket"
+              />
+            </SectionImageWrapper>
             <SectionContentStyled>
               <SectionNameStyled level={2} color="pink">
                 Building a community
@@ -335,11 +364,12 @@ export default function Home() {
             </SectionContentStyled>
           </SectionStyled>
           <SectionStyled>
-            <img
-              className="flip-order"
-              src={EntrepreneursImg}
-              alt="3d illustrated figures collaborating"
-            />
+            <SectionImageWrapper className="parallax-combo flip-order">
+              <SectionImage
+                src={EntrepreneursImg}
+                alt="3d illustrated figures collaborating"
+              />
+            </SectionImageWrapper>
             <SectionContentStyled>
               <SectionNameStyled level={2} color="pink">
                 Supporting entrepreneurs
@@ -361,7 +391,12 @@ export default function Home() {
             </SectionContentStyled>
           </SectionStyled>
           <SectionStyled style={{ paddingBottom: '30vmin' }}>
-            <img src={OrganisationsImg} alt="3d illustrated mountain climber" />
+            <SectionImageWrapper className="parallax-combo">
+              <SectionImage
+                src={OrganisationsImg}
+                alt="3d illustrated mountain climber"
+              />
+            </SectionImageWrapper>
             <SectionContentStyled>
               <SectionNameStyled level={2} color="pink">
                 Partner with organisations
