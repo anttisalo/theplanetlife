@@ -91,10 +91,8 @@ const GlobeStyled = styled.iframe`
   display: block;
   width: 90vmin;
   height: 90vmin;
-  max-width: 575px;
   margin: 4rem auto 2rem;
   border: 0;
-  overflow: hidden;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -109,7 +107,16 @@ const GlobeStyled = styled.iframe`
     left: 50%;
     top: 25%;
     width: 60vmin;
-    height: 58vmin;
+    height: 60vmin;
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromRegularDesktopUp}) {
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    width: 70vmin;
+    height: 70vmin;
   }
 `;
 
