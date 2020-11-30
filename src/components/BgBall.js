@@ -41,10 +41,9 @@ export default function BgBall() {
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.to('#bgBall', {
-      yPercent: '20',
-      ease: 'none',
+      yPercent: '3',
       scrollTrigger: {
-        trigger: '#bgBall',
+        trigger: '#whatWeDo',
         start: 'top bottom',
         end: 'bottom top',
         scrub: true,
