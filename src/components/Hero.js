@@ -208,7 +208,7 @@ export default function Hero(props) {
           It’s time to unlock the world's knowledge and turn a sustainable
           society into a reality.
         </Title2>
-        {/* <GlobeStyled src="https://tender-wing-c45ced.netlify.app/" /> */}
+        <GlobeStyled src="https://tender-wing-c45ced.netlify.app/" />
         <RoundedEndWrapper>
           <ClippingSvg
             viewBox="0 0 375 95"
