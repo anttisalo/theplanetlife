@@ -1,4 +1,5 @@
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = {
   siteMetadata: {
@@ -54,4 +55,15 @@ module.exports = {
       },
     },
   ],
+  developMiddleware: (app) => {
+    app.use(
+      '/.netlify/functions/',
+      createProxyMiddleware({
+        target: 'http://localhost:9000',
+        pathRewrite: {
+          '/.netlify/functions/': '',
+        },
+      })
+    );
+  },
 };

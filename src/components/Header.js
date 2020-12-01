@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Link from './Link';
 import logo from '../static/tplLogo.png';
+import ContactForm from './ContactForm';
 
 const HeaderStyled = styled.header`
   position: relative;
@@ -154,17 +155,18 @@ const NavLinkStyled = styled(Link)`
   }
 `;
 
-const LinkButtonStyled = styled(Link)`
-  display: inline-block;
+const ContactFormToggleStyled = styled.button`
   background-color: transparent;
   line-height: var(--line-height-inline-interaction);
   padding: 1.25rem;
   padding-top: 1.375rem;
-  text-transform: uppercase;
   margin: 0;
-  background-color: var(--color-white);
+  border: 0;
+  text-transform: uppercase;
   color: var(--color-blue-light);
+  background-color: var(--color-white);
   transition: background-color 150ms ease-in;
+  cursor: pointer;
 
   .no-touch &:hover {
     background-color: #d0d4fb;
@@ -201,21 +203,8 @@ const ToggleButton = styled.button`
   z-index: 2;
 
   &:focus {
-    outline: none;
-  }
-
-  &:focus:after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 5px solid rgba(255, 255, 255, 0.5);
-    left: 0;
-    top: 0px;
-    opacity: 0.3;
-    transform: scale3d(1.25, 1.2, 1);
-    border-radius: 8px;
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
   }
 
   svg {
@@ -249,6 +238,7 @@ const ToggleButton = styled.button`
 
 export default function Header() {
   const [expanded, setExpanded] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const data = useStaticQuery(graphql`
     query {
@@ -267,6 +257,10 @@ export default function Header() {
 
   const toggleMenu = () => {
     setExpanded(!expanded);
+  };
+
+  const handleClick = () => {
+    setIsFormVisible(!isFormVisible);
   };
 
   return (
@@ -297,13 +291,14 @@ export default function Header() {
               </NavItemStyled>
             ))}
             <NavItemStyled>
-              <LinkButtonStyled to="#joinOurMission">
+              <ContactFormToggleStyled onClick={handleClick}>
                 Get involved
-              </LinkButtonStyled>
+              </ContactFormToggleStyled>
             </NavItemStyled>
           </NavListStyled>
         </NavListContainer>
       </NavStyled>
+      <ContactForm isVisible={isFormVisible} />
     </HeaderStyled>
   );
 }
