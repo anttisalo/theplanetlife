@@ -138,7 +138,7 @@ export default function ContactForm({ isVisible }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    Axios.post('/functions/sendMail', data)
+    Axios.post('/api/sendMail', data)
       .then((res) => {
         console.log(res);
       })
