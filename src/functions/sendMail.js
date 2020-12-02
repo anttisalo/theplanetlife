@@ -5,7 +5,8 @@ exports.handler = function (event, context, callback) {
 
   const interests =
     (data.interests &&
-      data.interests.map((interest) => `<p>${interest}</p>`) || 'No interests selected';
+      data.interests.map((interest) => `<p>${interest}</p>`)) ||
+    'No interests selected';
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_SERVER_ADDRESS,
