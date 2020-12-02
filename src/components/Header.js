@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Link from './Link';
@@ -259,9 +259,18 @@ export default function Header() {
     setExpanded(!expanded);
   };
 
-  const handleClick = () => {
+  const toggleContactForm = () => {
+    console.log('toggle');
     setIsFormVisible(!isFormVisible);
   };
+
+  useEffect(() => {
+    if (isFormVisible) {
+      document.body.classList.add('contact-form-open');
+    } else {
+      document.body.classList.remove('contact-form-open');
+    }
+  }, [isFormVisible]);
 
   return (
     <HeaderStyled>
@@ -291,14 +300,16 @@ export default function Header() {
               </NavItemStyled>
             ))}
             <NavItemStyled>
-              <ContactFormToggleStyled onClick={handleClick}>
+              <ContactFormToggleStyled onClick={toggleContactForm}>
                 Get involved
               </ContactFormToggleStyled>
             </NavItemStyled>
           </NavListStyled>
         </NavListContainer>
       </NavStyled>
-      <ContactForm isVisible={isFormVisible} />
+      {isFormVisible && (
+        <ContactForm isVisible={isFormVisible} toggleForm={toggleContactForm} />
+      )}
     </HeaderStyled>
   );
 }

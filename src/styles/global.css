@@ -33,6 +33,7 @@ html {
   --line-height-title: 1.25;
   --line-height-inline-interaction: 1;
   --color-cta-primary: var(--color-blue-light);
+  --overflow-layout: auto;
 }
 
 body {
@@ -41,6 +42,10 @@ body {
   color: var(--color-body-text);
   line-height: var(--line-height-body-text);
   background-color: var(--color-white);
+}
+
+.contact-form-open {
+  overflow: hidden;
 }
 
 img {

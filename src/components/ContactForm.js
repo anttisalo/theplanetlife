@@ -1,6 +1,6 @@
 /* eslint-disable dot-notation */
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef, useState } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import Title from './Title';
@@ -18,6 +18,16 @@ const ContactFormStyled = styled.div`
   box-shadow: 0px 2px 9px 15px rgba(0, 0, 0, 0.25);
   transform: translate(-50%, -50%);
   overflow: auto;
+  z-index: 9;
+`;
+
+const Scrim = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
 `;
 
 const FormStyled = styled.form`
@@ -52,8 +62,48 @@ const InputWrapperStyled = styled.div`
 `;
 
 const LabelStyled = styled.label`
+  color: var(--color-gray-dark);
+
   [type='checkbox'] + & {
-    margin-left: 1rem;
+    color: var(--color-black);
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  [type='checkbox'] + &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid var(--color-gray-dark);
+    transform: translateY(-50%);
+  }
+
+  [type='checkbox'] + &:after {
+    content: '';
+    position: absolute;
+    left: 0.375rem;
+    top: 0rem;
+    width: 0.5rem;
+    height: 0.875rem;
+    border: solid var(--color-black);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+  }
+
+  [type='checkbox']:checked + &:after {
+    opacity: 1;
+  }
+
+  [type='checkbox']:checked:focus + &:before,
+  [type='checkbox']:not(:checked):focus + &:before {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
   }
 `;
 
@@ -86,13 +136,37 @@ const TextareaStyled = styled.textarea`
   }
 `;
 
+const InterestFieldTitle = styled(Para)`
+  color: var(--color-gray-dark);
+`;
+
+const CheckBoxWrap = styled.div`
+  margin-bottom: 0.875rem;
+`;
+
 const CheckBoxStyled = styled.input.attrs({
   type: 'checkbox',
-})``;
+})`
+  position: absolute;
+  left: -9999px;
+  visibility: hidden;
+`;
 
 const ErrorStyled = styled.span`
+  display: inline-block;
+  margin-top: 0.25rem;
   color: var(--color-error);
   max-width: 100%;
+`;
+
+const formSent = keyframes`
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 `;
 
 const SubmitStyled = styled.button`
@@ -101,20 +175,49 @@ const SubmitStyled = styled.button`
   color: var(--color-white);
   font-size: 0.875rem;
   line-height: var(--line-height-inline-interaction);
-  padding: 1.125rem 2.5rem;
+  padding: 1.5rem 2.5rem;
   text-transform: uppercase;
   border: 0;
   margin-top: 3.25rem;
+  transition: outline, background-color, 150ms ease-out;
 
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.5);
     outline-offset: 2px;
   }
 
+  &.form-sent {
+    background-color: var(--color-green-mid);
+    animation: ${formSent} 300ms ease-in;
+
+    &:focus {
+      outline: 2px solid rgba(43, 30, 200, 0);
+    }
+  }
+
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     margin-top: 2.5rem;
     width: auto;
+  }
+`;
+
+const ButtonCloseForm = styled.button`
+  width: 3rem;
+  height: 3rem;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border: 0;
+  background-color: transparent;
+  padding: 0.5rem;
+  color: var(--color-black);
+  font-size: 2rem;
+  cursor: pointer;
+
+  .no-touch &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.25);
+    outline-offset: 2px;
   }
 `;
 
@@ -128,122 +231,163 @@ const ContactInterests = [
   'None of the above, just saying hi',
 ];
 
-export default function ContactForm({ isVisible }) {
-  const {
-    register,
-    handleSubmit,
-    errors,
-    getValues,
-    triggerValidation,
-  } = useForm();
+export default function ContactForm({ isVisible, toggleForm }) {
+  const scrimRef = useRef();
+  const { register, handleSubmit, errors } = useForm();
+  const [isSent, setIsSent] = useState(false);
+
+  useEffect(() => {
+    if (isSent) {
+      setTimeout(() => {
+        toggleForm();
+      }, 2000);
+    }
+  }, [isSent]);
+
+  const onClickOutsideHandler = (e) => {
+    if (e.target === scrimRef.current) {
+      toggleForm();
+    }
+  };
+
+  const onKeyPress = (e) => {
+    if (e.keyCode === 27) {
+      toggleForm();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyPress, false);
+    return () => {
+      document.removeEventListener('keydown', onKeyPress, false);
+    };
+  });
+
+  useEffect(() => {
+    document.addEventListener('click', onClickOutsideHandler);
+    return () => {
+      document.removeEventListener('click', onClickOutsideHandler);
+    };
+  });
+
+  const defaultFormValues = {
+    fName: '',
+    lName: '',
+    email: '',
+    message: '',
+  };
 
   const onSubmit = (data) => {
-    Axios.post('/api/sendMail', data)
+    const filterInterests = data.interests.filter(Boolean);
+    const clearData = Object.assign(data, { interests: filterInterests });
+
+    Axios.post('/api/sendMail', clearData, {
+      validateStatus: (status) => status < 500,
+    })
       .then((res) => {
-        console.log(res);
+        setIsSent(true);
       })
-      .catch((error) => console.log(error));
-  };
-
-  const validateInterests = () => {
-    const values = getValues({ nest: true });
-    console.log('validate', values);
-
-    return (
-      values.interests.filter((v) => Boolean(v)).length >= 1 ||
-      'Select at least 1.'
-    );
-  };
-
-  const handleCheckboxChange = (e) => {
-    const { name } = e.target;
-    console.log(name);
+      .catch((error) => console.log(error.response.data));
   };
 
   return (
-    <ContactFormStyled hidden={!isVisible}>
-      <SectionNameStyled level={2} color="pink">
-        Contact form
-      </SectionNameStyled>
-      <Para mt="2.5rem">
-        The move towards a nature-positive economy derives from creating an
-        environment where people from different backgrounds and with different
-        perspectives can connect and where ideas can cultivate. We love hearing
-        your ideas, feedback and questions.
-      </Para>
-      <FormStyled onSubmit={handleSubmit(onSubmit)}>
-        <InputWrapperStyled>
-          <LabelStyled htmlFor="contactFormFirstName">
-            First name <span className="asterisk">*</span>
-          </LabelStyled>
-          <InputStyled
-            id="contactFormFirstName"
-            type="text"
-            name="fName"
-            ref={register({ required: true })}
-          />
-          {errors.fName && <ErrorStyled>This field is required</ErrorStyled>}
-        </InputWrapperStyled>
-        <InputWrapperStyled>
-          <LabelStyled htmlFor="contactFormLastName">
-            Last name <span className="asterisk">*</span>
-          </LabelStyled>
-          <InputStyled
-            id="contactFormLastName"
-            type="text"
-            name="lName"
-            ref={register({ required: true })}
-          />
-          {errors.lName && <ErrorStyled>This field is required</ErrorStyled>}
-        </InputWrapperStyled>
-        <InputWrapperStyled className="full-width">
-          <LabelStyled htmlFor="contactFormEmail">
-            Email <span className="asterisk">*</span>
-          </LabelStyled>
-          <InputStyled
-            id="contactFormEmail"
-            type="email"
-            name="email"
-            placeholder="my.name@example.org"
-            ref={register({ required: true })}
-          />
-          {errors.email && <ErrorStyled>This field is required</ErrorStyled>}
-        </InputWrapperStyled>
-        <InputWrapperStyled className="full-width">
-          <LabelStyled htmlFor="contactFormMessage">
-            Message <span className="asterisk">*</span>
-          </LabelStyled>
-          <TextareaStyled
-            id="contactFormMessage"
-            name="message"
-            ref={register({ required: true })}
-          />
-          {errors.message && <ErrorStyled>This field is required</ErrorStyled>}
-        </InputWrapperStyled>
-        <InputWrapperStyled className="full-width">
-          <Para>
-            I'm interested in <span className="asterisk">*</span>
-          </Para>
-          {ContactInterests.map((interest, i) => (
-            <span key={`checkbox-${i}`}>
-              <CheckBoxStyled
-                id={`interestBox${i}`}
-                name={`interests[${i}]`}
-                value={interest}
-                onChange={handleCheckboxChange}
-                ref={register({
-                  validate: validateInterests,
-                })}
-              />
-              <LabelStyled htmlFor={`interestBox${i}`}>{interest}</LabelStyled>
-            </span>
-          ))}
-          {errors.interests && errors.interests[0] && (
-            <ErrorStyled>{errors.interests[0].message}</ErrorStyled>
-          )}
-        </InputWrapperStyled>
-        <SubmitStyled>Send</SubmitStyled>
-      </FormStyled>
-    </ContactFormStyled>
+    <>
+      <Scrim ref={scrimRef} hidden={!isVisible} />
+      <ContactFormStyled hidden={!isVisible} formOpen={isVisible}>
+        <ButtonCloseForm onClick={toggleForm}>
+          <svg
+            fill="currentColor"
+            strokeWidth="0"
+            viewBox="0 0 512 512"
+            height="1em"
+            width="1em"
+          >
+            <path d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z" />
+          </svg>
+        </ButtonCloseForm>
+        <SectionNameStyled level={2} color="pink">
+          Contact form
+        </SectionNameStyled>
+        <Para mt="2.5rem">
+          The move towards a nature-positive economy derives from creating an
+          environment where people from different backgrounds and with different
+          perspectives can connect and where ideas can cultivate. We love
+          hearing your ideas, feedback and questions.
+        </Para>
+        <FormStyled onSubmit={handleSubmit(onSubmit)}>
+          <InputWrapperStyled>
+            <LabelStyled htmlFor="contactFormFirstName">
+              First name <span className="asterisk">*</span>
+            </LabelStyled>
+            <InputStyled
+              id="contactFormFirstName"
+              type="text"
+              name="fName"
+              ref={register({ required: true })}
+            />
+            {errors.fName && <ErrorStyled>This field is required</ErrorStyled>}
+          </InputWrapperStyled>
+          <InputWrapperStyled>
+            <LabelStyled htmlFor="contactFormLastName">
+              Last name <span className="asterisk">*</span>
+            </LabelStyled>
+            <InputStyled
+              id="contactFormLastName"
+              type="text"
+              name="lName"
+              ref={register({ required: true })}
+            />
+            {errors.lName && <ErrorStyled>This field is required</ErrorStyled>}
+          </InputWrapperStyled>
+          <InputWrapperStyled className="full-width">
+            <LabelStyled htmlFor="contactFormEmail">
+              Email <span className="asterisk">*</span>
+            </LabelStyled>
+            <InputStyled
+              id="contactFormEmail"
+              type="email"
+              name="email"
+              placeholder="my.name@example.org"
+              ref={register({ required: true })}
+            />
+            {errors.email && <ErrorStyled>This field is required</ErrorStyled>}
+          </InputWrapperStyled>
+          <InputWrapperStyled className="full-width">
+            <LabelStyled htmlFor="contactFormMessage">
+              Message <span className="asterisk">*</span>
+            </LabelStyled>
+            <TextareaStyled
+              id="contactFormMessage"
+              name="message"
+              ref={register({ required: true })}
+            />
+            {errors.message && (
+              <ErrorStyled>This field is required</ErrorStyled>
+            )}
+          </InputWrapperStyled>
+          <InputWrapperStyled className="full-width">
+            <InterestFieldTitle>
+              I'm interested in <span className="asterisk">*</span>
+            </InterestFieldTitle>
+            {ContactInterests.map((interest, i) => (
+              <CheckBoxWrap key={`checkbox-${i}`}>
+                <CheckBoxStyled
+                  id={`interestBox${i}`}
+                  name={`interests[${i}]`}
+                  value={interest}
+                  ref={register}
+                />
+                <LabelStyled htmlFor={`interestBox${i}`}>
+                  {interest}
+                </LabelStyled>
+              </CheckBoxWrap>
+            ))}
+          </InputWrapperStyled>
+          <SubmitStyled className={isSent && 'form-sent'}>
+            {isSent ? 'Thank you!' : 'Send'}
+          </SubmitStyled>
+        </FormStyled>
+      </ContactFormStyled>
+    </>
   );
 }

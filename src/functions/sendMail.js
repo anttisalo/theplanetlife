@@ -3,6 +3,11 @@ const nodemailer = require('nodemailer');
 exports.handler = function (event, context, callback) {
   const data = JSON.parse(event.body);
 
+  const interests =
+    (data.interests &&
+      data.interests.map((interest) => `<p>${interest}</p>`)) ||
+    'No interests selected';
+
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_SERVER_ADDRESS,
     port: process.env.SMTP_SERVER_PORT,
@@ -18,8 +23,11 @@ exports.handler = function (event, context, callback) {
       to: process.env.SMTP_RECIPIENT_EMAIL,
       subject: 'The Planet life contact form',
       html: `
-            <h3>Email from ${data.fName} ${data.lName} at ${data.email}<h3>
-            <p>${data.message}<p>
+            <p><strong>Sender:</strong> ${data.fName} ${data.lName}</p>
+            <p><strong>Sender email:</strong>  ${data.email}</p>
+            <p><strong>Messge:</strong>  ${data.message}</p>
+            <p><strong>With interests to:</strong></p>
+            ${interests}
             `,
     },
     function (error, info) {
