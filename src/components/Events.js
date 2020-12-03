@@ -5,6 +5,7 @@ import EventsList from './EventsList';
 import Title from './Title';
 
 const SectionStyled = styled.section`
+  position: relative;
   margin: 4rem auto;
   padding: 0 5%;
 `;

@@ -45,6 +45,7 @@ const SubmitStyled = styled.button`
   text-transform: uppercase;
   border: 0;
   margin-top: 1rem;
+  cursor: pointer;
 
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.5);

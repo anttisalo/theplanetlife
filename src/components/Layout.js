@@ -16,6 +16,7 @@ const StyledMain = styled.div`
     background: linear-gradient(to bottom, #0c198d 64%, #2b1ec8 75%);
     opacity: 0;
     transition: opacity 300ms ease-in;
+    z-index: 0;
   }
 
   &.bg-blue:before {

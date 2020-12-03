@@ -155,18 +155,54 @@ const NavLinkStyled = styled(Link)`
   }
 `;
 
-const ContactFormToggleStyled = styled.button`
-  background-color: transparent;
+const ButtonToggleContact = styled.button`
+  position: relative;
+  font-size: 0.875rem;
   line-height: var(--line-height-inline-interaction);
+  color: var(--color-white);
+  text-transform: uppercase;
+  border: 0mm;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      // eslint-disable-next-line prettier/prettier
+      breakpoints.fromTabletPortraitUp}) and (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    font-size: 0.75rem;
+  }
+
+  .no-touch &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    background-color: var(--color-green-mid);
+    transform: scaleY(0);
+    transition: transform 150ms ease-out;
+  }
+
+  .no-touch &:hover:after {
+    transform: scaleY(1);
+  }
+
+  .no-touch &:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+  }
+`;
+
+const GetInvolvedButtonLink = styled(Link)`
   padding: 1.25rem;
   padding-top: 1.375rem;
-  margin: 0;
-  border: 0;
   text-transform: uppercase;
+  line-height: var(--line-height-inline-interaction);
   color: var(--color-blue-light);
   background-color: var(--color-white);
   transition: background-color 150ms ease-in;
-  cursor: pointer;
 
   .no-touch &:hover {
     background-color: #d0d4fb;
@@ -244,16 +280,13 @@ export default function Header() {
     query {
       site {
         siteMetadata {
-          pages {
-            name
-            path
-          }
+          title
         }
       }
     }
   `);
 
-  const { pages } = data.site.siteMetadata;
+  const { title } = data.site.siteMetadata;
 
   const toggleMenu = () => {
     setExpanded(!expanded);
@@ -294,15 +327,21 @@ export default function Header() {
         </ToggleButton>
         <NavListContainer>
           <NavListStyled>
-            {pages.map(({ path, name }, index) => (
-              <NavItemStyled key={index}>
-                <NavLinkStyled to={path}>{name}</NavLinkStyled>
-              </NavItemStyled>
-            ))}
             <NavItemStyled>
-              <ContactFormToggleStyled onClick={toggleContactForm}>
+              <NavLinkStyled to="#howItWorks">How it works</NavLinkStyled>
+            </NavItemStyled>
+            <NavItemStyled>
+              <NavLinkStyled to="#events">Our events</NavLinkStyled>
+            </NavItemStyled>
+            <NavItemStyled>
+              <ButtonToggleContact onClick={toggleContactForm}>
+                Contact us
+              </ButtonToggleContact>
+            </NavItemStyled>
+            <NavItemStyled>
+              <GetInvolvedButtonLink to="#joinOurMission">
                 Get involved
-              </ContactFormToggleStyled>
+              </GetInvolvedButtonLink>
             </NavItemStyled>
           </NavListStyled>
         </NavListContainer>
