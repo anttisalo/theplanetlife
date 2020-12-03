@@ -6,8 +6,8 @@ module.exports = {
     title: 'The Planet life',
     pages: [
       { path: '#howItWorks', name: 'How it works' },
-      { path: '#events', name: 'Events' },
-      { path: '#contact', name: 'Contact' },
+      { path: '#events', name: 'Our events' },
+      { path: '#contact', name: 'Contact us' },
     ],
   },
   plugins: [

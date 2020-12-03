@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Accordion from './Accordion';
 import Title from './Title';
+import Para from './Paragraph';
 
 const SectionStyled = styled.section`
   position: relative;
@@ -52,6 +53,12 @@ const CategoryNameStyled = styled.span`
   }
 `;
 
+const AccordionPara = styled(Para)`
+  .bg-blue & {
+    color: var(--color-white);
+  }
+`;
+
 export default function HowItWorks() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -84,21 +91,39 @@ export default function HowItWorks() {
       <OperationsStyled>
         <CategoryNameStyled>01. Research</CategoryNameStyled>
         <Accordion title="We investigate and identify opportunities for future development">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
-          Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
-          disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
+          <AccordionPara>
+            With a focus on agriculture, city infrastructure and energy as
+            socio-economic systems, we dedicate our research to gathering
+            information from multiple sources enabling us to scan the market for
+            new opportunities and technologies.
+          </AccordionPara>
+          <AccordionPara>
+            Our research helps us to create new tools, articles, share
+            resources, and set up projects for our community.
+          </AccordionPara>
         </Accordion>
         <CategoryNameStyled>02. Projects</CategoryNameStyled>
-        <Accordion title="Projects are matched with a unique skillset of the community">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
-          Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
-          disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
+        <Accordion title="Selected projects are matched with the unique skillset of our community">
+          <AccordionPara>
+            We welcome projects that challenge the status quo in agriculture,
+            city infrastructure and energy. Community members are matched to the
+            specific needs to meet the project ask. This enables us to create
+            tailored workshops and events.
+          </AccordionPara>
+          <AccordionPara>
+            We welcome projects from NGOs, charities and early startups who
+            could benefit from the knowledge of our community of creatives,
+            visionaries and innovators.
+          </AccordionPara>
         </Accordion>
         <CategoryNameStyled>03. Ventures</CategoryNameStyled>
-        <Accordion title="As a collective we support, create and grow startups">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tum Lucius:
-          Mihi vero ista valde probata sunt, quod item fratri puto. Si de re
-          disceptari oportet, nulla mihi tecum, Cato, potest esse dissensio.
+        <Accordion title="With the support of the community We create and grow startups">
+          <AccordionPara>
+            We work with the best talent selected from our community to bring
+            our own venture ideas to the table. New or existing startups are
+            build and supported through the process of research, opportunity
+            development and project creation.
+          </AccordionPara>
         </Accordion>
       </OperationsStyled>
     </SectionStyled>
