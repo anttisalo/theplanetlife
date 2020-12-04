@@ -21,6 +21,7 @@ const SectionNameStyled = styled(Title)`
 `;
 
 const SectionHeadline = styled(Title)`
+  max-width: 55rem;
   margin-bottom: 4rem;
 `;
 
@@ -61,8 +62,8 @@ export default function Events({ eventsData }) {
         Events
       </SectionNameStyled>
       <SectionHeadline level={3}>
-        We create an action oriented environment where people get to be hands-on
-        supporting environmental projects.
+        We create an action oriented environment where people get to be part of
+        a community supporting environmental projects.
       </SectionHeadline>
       <EventFilter setFilterValue={getFilteredEvents} />
       <EventsList events={events} />
