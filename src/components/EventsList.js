@@ -18,13 +18,16 @@ const EventsStyled = styled.div`
       breakpoints.fromTabletPortraitUp}) {
     display: flex;
     overflow-x: auto;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    scroll-snap-type: x mandatory;
   }
 `;
 
 const EventCardStyled = styled.div`
-  display: flex;
-  flex-direction: column;
   margin-bottom: 4rem;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.1),
+    0px 3px 10px 0px rgba(0, 0, 0, 0.15);
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -32,6 +35,7 @@ const EventCardStyled = styled.div`
     flex: 0 0 auto;
     margin-right: 3vw;
     margin-bottom: 0;
+    scroll-snap-align: end;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
@@ -60,6 +64,12 @@ const ImageAspectRatioInner = styled.div`
     height: 100%;
     width: 100%;
   }
+`;
+
+const EventContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem;
 `;
 
 const EventTitle = styled.h5`
@@ -115,11 +125,13 @@ export default function EventsList({ events }) {
                 )}
               </ImageAspectRatioInner>
             </ImageAspectRatioBox>
-            <EventTitle>
-              <EventLink to={event.event_url}>{event.title}</EventLink>
-            </EventTitle>
-            <EventDate>{getTimeString(event.start_date)}</EventDate>
-            <EventDescription>{event.description}</EventDescription>
+            <EventContentContainer>
+              <EventTitle>
+                <EventLink to={event.event_url}>{event.title}</EventLink>
+              </EventTitle>
+              <EventDate>{getTimeString(event.start_date)}</EventDate>
+              <EventDescription>{event.description}</EventDescription>
+            </EventContentContainer>
           </EventCardStyled>
         ))}
     </EventsStyled>
