@@ -47,6 +47,10 @@ const SubmitStyled = styled.button`
   margin-top: 1rem;
   cursor: pointer;
 
+  .no-touch &:hover {
+    background-color: rgba(43, 30, 200, 0.85);
+  }
+
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.5);
     outline-offset: 2px;
