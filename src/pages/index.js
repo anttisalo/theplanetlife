@@ -13,6 +13,7 @@ import BgBall from '../components/BgBall';
 import Welcome from '../components/Welcome';
 import theme from '../../styled-theme';
 import Events from '../components/Events';
+import Footer from '../components/Footer';
 import CommunityImg from '../static/3D_Community.png';
 import EntrepreneursImg from '../static/3D_Entrepreneurs.png';
 import OrganisationsImg from '../static/3D_Organisations.png';
@@ -20,7 +21,6 @@ import Link from '../components/Link';
 import ContactForm from '../components/ContactForm';
 import eventsData from '../events/events.yaml';
 import 'normalize.css';
-import Footer from '../components/Footer';
 
 const MainStyled = styled.main`
   position: relative;
