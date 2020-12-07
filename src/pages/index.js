@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -371,8 +371,24 @@ export default function Home() {
     }
   });
 
+  const [lastActiveElement, setLastActiveElement] = useState(undefined);
+
+  const onModalOpen = () => {
+    setLastActiveElement(document.activeElement);
+  };
+
+  const onModalClose = () => {
+    lastActiveElement.focus();
+  };
+
   const [isFormVisible, setIsFormVisible] = useState(false);
   const toggleContactForm = () => {
+    if (!isFormVisible) {
+      onModalOpen();
+    } else {
+      onModalClose();
+    }
+
     setIsFormVisible(!isFormVisible);
   };
 
