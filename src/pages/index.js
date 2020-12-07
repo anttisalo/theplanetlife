@@ -20,6 +20,7 @@ import Link from '../components/Link';
 import ContactForm from '../components/ContactForm';
 import eventsData from '../events/events.yaml';
 import 'normalize.css';
+import Footer from '../components/Fooer';
 
 const MainStyled = styled.main`
   position: relative;
@@ -337,37 +338,6 @@ const JoinUsContentStyled = styled.div`
   }
 `;
 
-const FooterStyled = styled.footer`
-  position: relative;
-  padding: 80vh 0 4rem;
-  background-color: var(--color-gray-light);
-  overflow: hidden;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 250vw;
-    height: 250vw;
-    border-radius: 50%50%;
-    background: linear-gradient(
-      var(--color-blue-light),
-      var(--color-blue-dark) 73.78%
-    );
-    transform: translate(-60%, -5%);
-    z-index: 1;
-  }
-`;
-
-const FooterContentStyled = styled.div`
-  position: relative;
-  z-index: 2;
-  margin: 0 auto;
-  max-width: 80rem;
-  padding: 0 5%;
-`;
-
 export default function Home() {
   useEffect(() => {
     const touchsupport =
@@ -526,24 +496,7 @@ export default function Home() {
           </JoinOurMission>
         </MainStyled>
         <Events eventsData={eventsData} />
-        <FooterStyled>
-          <FooterContentStyled>
-            <SectionNameStyled level={2} color="pink">
-              Partner with organisations
-            </SectionNameStyled>
-
-            <BgTransitionTitle level={3}>
-              Turning a sustainable society into a reality
-            </BgTransitionTitle>
-            <BgTransitionPara mt="1.5rem" mb="0">
-              We support businesses to thrive in a new economy. Through hyper
-              customised workshops and tailored programs we unlock the knowledge
-              of our community to enable solutions that are grounded in research
-              and collaboration. To explore potential partnership opportunities,
-              get in touch.
-            </BgTransitionPara>
-          </FooterContentStyled>
-        </FooterStyled>
+        <Footer />
       </Layout>
       {isFormVisible && (
         <ContactForm isVisible={isFormVisible} toggleForm={toggleContactForm} />
