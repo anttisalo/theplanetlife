@@ -20,7 +20,7 @@ import Link from '../components/Link';
 import ContactForm from '../components/ContactForm';
 import eventsData from '../events/events.yaml';
 import 'normalize.css';
-import Footer from '../components/Fooer';
+import Footer from '../components/Footer';
 
 const MainStyled = styled.main`
   position: relative;
