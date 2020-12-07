@@ -365,8 +365,8 @@ export default function Home() {
           },
         });
 
-        tl.to(img, { yPercent: '20' });
-        tl.to(container, { '--translateY': '10%' });
+        tl.to(img, { yPercent: '-25' });
+        tl.to(container, { '--translateY': '-10%' });
       });
     }
   });
