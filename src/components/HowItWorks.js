@@ -105,23 +105,20 @@ export default function HowItWorks() {
         <CategoryNameStyled>02. Projects</CategoryNameStyled>
         <Accordion title="Selected projects are matched with the unique skillset of our community">
           <AccordionPara>
-            We welcome projects that challenge the status quo in agriculture,
-            city infrastructure and energy. Community members are matched to the
-            specific needs to meet the project ask. This enables us to create
-            tailored workshops and events.
-          </AccordionPara>
-          <AccordionPara>
-            We welcome projects from NGOs, charities and early startups who
-            could benefit from the knowledge of our community of creatives,
-            visionaries and innovators.
+            We welcome projects and ideas that challenge the status quo.
+            Community members are matched to the specific needs of the project
+            ask. This enables us to create tailored workshops and events. We
+            welcome projects from NGOs, charities, early startups and
+            individuals who could benefit from the knowledge of our
+            action-oriented community.
           </AccordionPara>
         </Accordion>
         <CategoryNameStyled>03. Ventures</CategoryNameStyled>
         <Accordion title="With the support of the community We create and grow startups">
           <AccordionPara>
             We work with the best talent selected from our community to bring
-            our own venture ideas to the table. New or existing startups are
-            build and supported through the process of research, opportunity
+            our own venture ideas to life. New or existing startups are build
+            and supported through the process of research, opportunity
             development and project creation.
           </AccordionPara>
         </Accordion>
