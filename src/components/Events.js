@@ -5,8 +5,10 @@ import EventsList from './EventsList';
 import Title from './Title';
 
 const SectionStyled = styled.section`
-  margin: 4rem auto;
-  padding: 0 5%;
+  position: relative;
+  margin: 4rem auto 0;
+  padding: 0 5% 5rem;
+  background: linear-gradient(var(--color-white), var(--color-gray-light) 50%);
 `;
 
 const SectionNameStyled = styled(Title)`
@@ -20,7 +22,8 @@ const SectionNameStyled = styled(Title)`
 `;
 
 const SectionHeadline = styled(Title)`
-  margin-bottom: 4rem;
+  max-width: 55rem;
+  margin-bottom: 3rem;
 `;
 
 export default function Events({ eventsData }) {
@@ -60,8 +63,8 @@ export default function Events({ eventsData }) {
         Events
       </SectionNameStyled>
       <SectionHeadline level={3}>
-        We create an action oriented environment where people get to be hands-on
-        supporting environmental projects.
+        We create an action oriented environment where people get to be part of
+        a community supporting environmental projects.
       </SectionHeadline>
       <EventFilter setFilterValue={getFilteredEvents} />
       <EventsList events={events} />

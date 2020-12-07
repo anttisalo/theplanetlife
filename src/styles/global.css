@@ -22,6 +22,7 @@ html {
   --color-gray-dark: #858891;
   --color-pink: #FC345F;
   --color-error: var(--color-pink);
+
   --color-body-text: var(--color-black);
   --font-size-default: 100%;
   --font-family-body: 'Atkinson', sans-serif;

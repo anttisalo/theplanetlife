@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from './Link';
 import Para from './Paragraph';
-import Title from './Title';
 
 function getTimeString(date) {
   const dateString = new Date(date);
@@ -14,17 +13,22 @@ function getTimeString(date) {
 }
 
 const EventsStyled = styled.div`
+  margin-top: 5rem;
+
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
     display: flex;
     overflow-x: auto;
+    padding: 0.5rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    scroll-snap-type: x mandatory;
   }
 `;
 
 const EventCardStyled = styled.div`
-  display: flex;
-  flex-direction: column;
   margin-bottom: 4rem;
+  background-color: var(--color-white);
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -32,6 +36,7 @@ const EventCardStyled = styled.div`
     flex: 0 0 auto;
     margin-right: 3vw;
     margin-bottom: 0;
+    scroll-snap-align: end;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
@@ -60,6 +65,12 @@ const ImageAspectRatioInner = styled.div`
     height: 100%;
     width: 100%;
   }
+`;
+
+const EventContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem;
 `;
 
 const EventTitle = styled.h5`
@@ -115,11 +126,13 @@ export default function EventsList({ events }) {
                 )}
               </ImageAspectRatioInner>
             </ImageAspectRatioBox>
-            <EventTitle>
-              <EventLink to={event.event_url}>{event.title}</EventLink>
-            </EventTitle>
-            <EventDate>{getTimeString(event.start_date)}</EventDate>
-            <EventDescription>{event.description}</EventDescription>
+            <EventContentContainer>
+              <EventTitle>
+                <EventLink to={event.event_url}>{event.title}</EventLink>
+              </EventTitle>
+              <EventDate>{getTimeString(event.start_date)}</EventDate>
+              <EventDescription>{event.description}</EventDescription>
+            </EventContentContainer>
           </EventCardStyled>
         ))}
     </EventsStyled>

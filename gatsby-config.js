@@ -4,11 +4,6 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = {
   siteMetadata: {
     title: 'The Planet life',
-    pages: [
-      { path: '#howItWorks', name: 'How it works' },
-      { path: '#events', name: 'Events' },
-      { path: '#contact', name: 'Contact' },
-    ],
   },
   plugins: [
     {

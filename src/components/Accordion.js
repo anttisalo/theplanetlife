@@ -82,12 +82,6 @@ const AccordionTitle = styled(Title)`
   }
 `;
 
-const AccordionPara = styled(Para)`
-  .bg-blue & {
-    color: var(--color-white);
-  }
-`;
-
 const AccordionContent = styled.div`
   margin-top: 1.5rem;
 `;
@@ -114,11 +108,7 @@ export default function Accordion({ title, children }) {
           </svg>
         </ButtonStyled>
       </AccordionTitle>
-      <AccordionContent hidden={!expanded}>
-        <AccordionPara mt="0" mb="0">
-          {children}
-        </AccordionPara>
-      </AccordionContent>
+      <AccordionContent hidden={!expanded}>{children}</AccordionContent>
     </AccordionWrapper>
   );
 }

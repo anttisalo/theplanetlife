@@ -5,7 +5,6 @@ const FilterField = styled.fieldset`
   border: 0;
   padding: 0;
   margin: 0;
-  margin-bottom: 2rem;
 `;
 
 const LegendStyled = styled.legend`
@@ -41,6 +40,7 @@ const LabelStyled = styled.label`
   text-transform: uppercase;
   line-height: var(--line-height-inline-interaction);
   padding: 0.75rem 1.25rem;
+  cursor: pointer;
 
   &:not(:last-child) {
     margin-right: 1rem;

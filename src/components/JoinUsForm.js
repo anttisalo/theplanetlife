@@ -41,10 +41,11 @@ const SubmitStyled = styled.button`
   color: var(--color-white);
   font-size: 1rem;
   line-height: var(--line-height-inline-interaction);
-  padding: 1.5rem 5rem;
+  padding: 1.5rem 3.5rem;
   text-transform: uppercase;
   border: 0;
   margin-top: 1rem;
+  cursor: pointer;
 
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.5);
