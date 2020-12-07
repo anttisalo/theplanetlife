@@ -84,7 +84,7 @@ export default function HowItWorks() {
   });
 
   return (
-    <SectionStyled id="howItWorks">
+    <SectionStyled id="howItWorks" tabindex="-1">
       <SectionNameStyled level={2} color="pink">
         How it works
       </SectionNameStyled>
