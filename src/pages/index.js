@@ -445,7 +445,10 @@ export default function Home() {
                 innovative ideas that address and support the needs of a
                 healthier planet and society.
               </Para>
-              <LinkButtonStyled to="#joinOurMission" color="blue-light">
+              <LinkButtonStyled
+                to="https://forms.gle/XWXbYgGVUminD2qs8"
+                color="blue-light"
+              >
                 <span>Work with us</span>
                 <svg viewBox="0 0 11 18">
                   <path d="M1.72031 0.209961L0.640313 1.28246L8.35031 8.99246L0.632812 16.7025L1.70531 17.775L9.95531 9.52496L10.4653 8.98496L9.94781 8.44496L1.72031 0.209961Z" />
