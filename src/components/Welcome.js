@@ -112,7 +112,7 @@ export default function Welcome() {
   const setParallax = () => {
     if (window.matchMedia('(min-width: 900px)').matches) {
       gsap.to('#greenBall', {
-        yPercent: '6',
+        yPercent: '-10',
         scrollTrigger: {
           trigger: '#WelcomeSection',
           start: 'top bottom',
@@ -122,7 +122,7 @@ export default function Welcome() {
       });
 
       gsap.to('#welcomeImg', {
-        yPercent: '15',
+        yPercent: '-15',
         scrollTrigger: {
           trigger: '#WelcomeSection',
           start: 'top bottom',
