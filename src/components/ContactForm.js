@@ -259,6 +259,8 @@ const ContactInterests = [
 
 export default function ContactForm({ isVisible, toggleForm }) {
   const scrimRef = useRef();
+  const modalRef = useRef();
+
   const { register, handleSubmit, errors } = useForm();
   const [isSent, setIsSent] = useState(false);
 
@@ -270,15 +272,22 @@ export default function ContactForm({ isVisible, toggleForm }) {
     }
   }, [isSent]);
 
+  useEffect(() => {
+    if (isVisible) {
+      modalRef.current.setAttribute('tabindex', 0);
+      modalRef.current.focus();
+    }
+  }, [isVisible]);
+
   const onClickOutsideHandler = (e) => {
     if (e.target === scrimRef.current) {
-      toggleForm();
+      toggleForm(e);
     }
   };
 
   const onKeyPress = (e) => {
     if (e.keyCode === 27) {
-      toggleForm();
+      toggleForm(e);
     }
   };
 
@@ -319,7 +328,12 @@ export default function ContactForm({ isVisible, toggleForm }) {
   return (
     <>
       <Scrim ref={scrimRef} hidden={!isVisible} />
-      <ContactFormStyled hidden={!isVisible} formOpen={isVisible}>
+      <ContactFormStyled
+        ref={modalRef}
+        hidden={!isVisible}
+        formOpen={isVisible}
+        tabindex="-1"
+      >
         <ButtonCloseForm onClick={toggleForm}>
           <svg
             fill="currentColor"
