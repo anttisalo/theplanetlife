@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from './Link';
 import Para from './Paragraph';
-import Title from './Title';
 
 function getTimeString(date) {
   const dateString = new Date(date);
@@ -14,20 +13,22 @@ function getTimeString(date) {
 }
 
 const EventsStyled = styled.div`
+  margin-top: 5rem;
+
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
     display: flex;
     overflow-x: auto;
     padding: 0.5rem;
-    margin: -0.5rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
     scroll-snap-type: x mandatory;
   }
 `;
 
 const EventCardStyled = styled.div`
   margin-bottom: 4rem;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.1),
-    0px 3px 10px 0px rgba(0, 0, 0, 0.15);
+  background-color: var(--color-white);
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {

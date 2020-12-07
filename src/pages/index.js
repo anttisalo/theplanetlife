@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -17,11 +17,18 @@ import CommunityImg from '../static/3D_Community.png';
 import EntrepreneursImg from '../static/3D_Entrepreneurs.png';
 import OrganisationsImg from '../static/3D_Organisations.png';
 import Link from '../components/Link';
+import ContactForm from '../components/ContactForm';
 import eventsData from '../events/events.yaml';
 import 'normalize.css';
 
 const MainStyled = styled.main`
   position: relative;
+  padding-bottom: 6rem;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    padding-bottom: 5rem;
+  }
 `;
 
 const SectionStyled = styled.section`
@@ -143,9 +150,7 @@ const BgTransitionPara = styled(Para)`
 `;
 
 const LinkButtonStyled = styled(Link)`
-  background-color: transparent;
   font-weight: 500;
-  line-height: var(--line-height-inline-interaction);
   text-transform: uppercase;
   margin-top: 3rem;
   padding: 0.5rem 0;
@@ -184,11 +189,40 @@ const LinkButtonStyled = styled(Link)`
   }
 `;
 
+const ButtonToggleContact = styled.button`
+  position: relative;
+  font-size: 1rem;
+  line-height: var(--line-height-inline-interaction);
+  color: var(--color-blue-light);
+  text-transform: uppercase;
+  margin-top: 3rem;
+  padding: 1.5rem 2rem 1.375rem;
+  border: 1px solid var(--color-blue-light);
+  background-color: transparent;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color, color, 150ms ease-out;
+
+  .no-touch &:hover {
+    background-color: rgba(43, 30, 200, 0.75);
+    color: var(--color-white);
+  }
+
+  .no-touch &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.25);
+    outline-offset: 2px;
+  }
+
+  .bg-blue & {
+    color: var(--color-white);
+  }
+`;
+
 const JoinOurMission = styled.section`
   position: relative;
   max-width: 55rem;
   min-height: 100vw;
-  margin: 20% 1.5rem 50%;
+  margin: 10% 1.5rem 0;
   display: flex;
   align-items: center;
 
@@ -211,25 +245,18 @@ const JoinOurMission = styled.section`
   &:before {
     content: '';
     display: block;
-    width: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     padding-top: 0;
     border-radius: 50%;
-    background-color: pink;
     transform: translate(-50%, -50%);
     background: linear-gradient(
       154deg,
       var(--color-gray-light) 33.99%,
       rgba(249, 251, 255, 0.5) 86.44%
     );
-
-    @media (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.aux['480Up']}) {
-      width: 150%;
-      padding-top: 150%;
-    }
+    z-index: 1;
 
     @media (min-width: ${({ theme: { breakpoints } }) =>
         breakpoints.fromTabletPortraitUp}) {
@@ -241,6 +268,27 @@ const JoinOurMission = styled.section`
         breakpoints.fromTabletLandscapeUp}) {
       width: 100%;
       padding-top: 100%;
+    }
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    transform: translate(-16%, 6%);
+    background: linear-gradient(
+      163.02deg,
+      rgba(33, 214, 116, 0.6) 10.18%,
+      rgba(232, 253, 242, 0.6) 106.36%
+    );
+    z-index: 0;
+
+    @media (min-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.fromTabletLandscapeUp}) {
+      width: 75%;
+      height: 75%;
     }
   }
 `;
@@ -274,6 +322,7 @@ const JoinUsContentStyled = styled.div`
   left: 0;
   width: 100%;
   transform: translateY(-50%);
+  z-index: 2;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -286,6 +335,37 @@ const JoinUsContentStyled = styled.div`
     padding-left: 20%;
     padding-right: 20%;
   }
+`;
+
+const FooterStyled = styled.footer`
+  position: relative;
+  padding: 80vh 0 4rem;
+  background-color: var(--color-gray-light);
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250vw;
+    height: 250vw;
+    border-radius: 50%50%;
+    background: linear-gradient(
+      var(--color-blue-light),
+      var(--color-blue-dark) 73.78%
+    );
+    transform: translate(-60%, -5%);
+    z-index: 1;
+  }
+`;
+
+const FooterContentStyled = styled.div`
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  max-width: 80rem;
+  padding: 0 5%;
 `;
 
 export default function Home() {
@@ -321,11 +401,24 @@ export default function Home() {
     }
   });
 
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const toggleContactForm = () => {
+    setIsFormVisible(!isFormVisible);
+  };
+
+  useEffect(() => {
+    if (isFormVisible) {
+      document.body.classList.add('contact-form-open');
+    } else {
+      document.body.classList.remove('contact-form-open');
+    }
+  }, [isFormVisible]);
+
   return (
     <ThemeProvider theme={theme}>
       <Layout>
         <Hero>
-          <Header />
+          <Header toggleContactForm={toggleContactForm} />
         </Hero>
         <MainStyled id="main">
           <Welcome />
@@ -412,12 +505,9 @@ export default function Home() {
                 in research and collaboration. To explore potential partnership
                 opportunities, get in touch.
               </BgTransitionPara>
-              <LinkButtonStyled to="#joinOurMission" color="blue-light">
+              <ButtonToggleContact onClick={toggleContactForm}>
                 <span>Contact us</span>
-                <svg viewBox="0 0 11 18">
-                  <path d="M1.72031 0.209961L0.640313 1.28246L8.35031 8.99246L0.632812 16.7025L1.70531 17.775L9.95531 9.52496L10.4653 8.98496L9.94781 8.44496L1.72031 0.209961Z" />
-                </svg>
-              </LinkButtonStyled>
+              </ButtonToggleContact>
             </SectionContentStyled>
           </SectionStyled>
           <HowItWorks />
@@ -436,7 +526,28 @@ export default function Home() {
           </JoinOurMission>
         </MainStyled>
         <Events eventsData={eventsData} />
+        <FooterStyled>
+          <FooterContentStyled>
+            <SectionNameStyled level={2} color="pink">
+              Partner with organisations
+            </SectionNameStyled>
+
+            <BgTransitionTitle level={3}>
+              Turning a sustainable society into a reality
+            </BgTransitionTitle>
+            <BgTransitionPara mt="1.5rem" mb="0">
+              We support businesses to thrive in a new economy. Through hyper
+              customised workshops and tailored programs we unlock the knowledge
+              of our community to enable solutions that are grounded in research
+              and collaboration. To explore potential partnership opportunities,
+              get in touch.
+            </BgTransitionPara>
+          </FooterContentStyled>
+        </FooterStyled>
       </Layout>
+      {isFormVisible && (
+        <ContactForm isVisible={isFormVisible} toggleForm={toggleContactForm} />
+      )}
     </ThemeProvider>
   );
 }

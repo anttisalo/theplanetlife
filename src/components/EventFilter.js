@@ -5,7 +5,6 @@ const FilterField = styled.fieldset`
   border: 0;
   padding: 0;
   margin: 0;
-  margin-bottom: 2rem;
 `;
 
 const LegendStyled = styled.legend`

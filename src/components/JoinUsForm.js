@@ -41,7 +41,7 @@ const SubmitStyled = styled.button`
   color: var(--color-white);
   font-size: 1rem;
   line-height: var(--line-height-inline-interaction);
-  padding: 1.5rem 5rem;
+  padding: 1.5rem 3.5rem;
   text-transform: uppercase;
   border: 0;
   margin-top: 1rem;

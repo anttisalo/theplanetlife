@@ -6,8 +6,9 @@ import Title from './Title';
 
 const SectionStyled = styled.section`
   position: relative;
-  margin: 4rem auto;
-  padding: 0 5%;
+  margin: 4rem auto 0;
+  padding: 0 5% 5rem;
+  background: linear-gradient(var(--color-white), var(--color-gray-light) 50%);
 `;
 
 const SectionNameStyled = styled(Title)`
@@ -22,7 +23,7 @@ const SectionNameStyled = styled(Title)`
 
 const SectionHeadline = styled(Title)`
   max-width: 55rem;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 `;
 
 export default function Events({ eventsData }) {
