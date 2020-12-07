@@ -9,16 +9,22 @@ import Para from './Paragraph';
 const ContactFormStyled = styled.div`
   width: 85vw;
   max-width: 40rem;
-  max-height: 65vh;
+  max-height: 80vh;
   position: fixed;
   top: 50%;
   left: 50%;
-  padding: 3.5rem;
+  padding: 2rem;
   background-color: var(--color-white);
   box-shadow: 0px 2px 9px 15px rgba(0, 0, 0, 0.25);
   transform: translate(-50%, -50%);
   overflow: auto;
   z-index: 9;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    max-height: 65vh;
+    padding: 3.5rem;
+  }
 `;
 
 const Scrim = styled.div`
@@ -32,9 +38,14 @@ const Scrim = styled.div`
 
 const FormStyled = styled.form`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-column-gap: 1rem;
   margin-top: 1rem;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 const SectionNameStyled = styled(Title)`
@@ -44,10 +55,18 @@ const SectionNameStyled = styled(Title)`
 `;
 
 const InputWrapperStyled = styled.div`
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    margin-top: 1.25rem;
+  }
 
   &.full-width {
-    grid-column: span 2;
+    @media (min-width: ${({ theme: { breakpoints } }) =>
+        breakpoints.fromTabletPortraitUp}) {
+      grid-column: span 2;
+    }
   }
 
   .asterisk {
@@ -63,6 +82,7 @@ const InputWrapperStyled = styled.div`
 
 const LabelStyled = styled.label`
   color: var(--color-gray-dark);
+  display: inline-block;
 
   [type='checkbox'] + & {
     color: var(--color-black);
@@ -108,13 +128,19 @@ const LabelStyled = styled.label`
 `;
 
 const InputStyled = styled.input`
-  padding: 1.375rem 1rem;
+  padding: 1rem;
   background-color: var(--color-white);
   border: 1px solid #bcc1cb;
   width: 100%;
   border-radius: 0;
   box-shadow: none;
   margin-top: 0.125rem;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    padding-top: 1.325rem;
+    padding-bottom: 1.325rem;
+  }
 
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.5);
