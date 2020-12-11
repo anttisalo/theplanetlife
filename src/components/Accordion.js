@@ -36,7 +36,7 @@ const ButtonStyled = styled.button`
   svg {
     height: 1.25em;
     flex: 0 0 auto;
-    margin-left: auto;
+    margin-left: 10%;
   }
 
   &:focus svg {

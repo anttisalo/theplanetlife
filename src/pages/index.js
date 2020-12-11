@@ -60,7 +60,7 @@ const SectionStyled = styled.section`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    grid-gap: 3rem;
+    grid-gap: 5rem;
     padding-top: 4rem;
     padding-bottom: 4rem;
     margin-bottom: 0;
@@ -75,49 +75,48 @@ const SectionStyled = styled.section`
 
 const SectionImageWrapper = styled.div`
   position: relative;
-  padding: 2rem;
+  padding-top: 100%;
+
   --translateY: 0%;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
     &.flip-order {
       order: 1;
-    }
-  }
 
-  &:before {
-    content: '';
-    display: block;
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    right: 10%;
-    width: 70vmin;
-    height: 70vmin;
-    border-radius: 50%;
-    background-image: linear-gradient(
-      110deg,
-      var(--color-blue-dark),
-      var(--color-blue-light) 80%
-    );
-    transform: translateY(var(--translateY));
-
-    @media (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.fromTabletPortraitUp}) {
-      width: 35vmin;
-      height: 35vmin;
-    }
-
-    @media (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.fromTabletLandscapeUp}) {
-      width: 45vmin;
-      height: 45vmin;
+      img {
+        width: 90%;
+      }
     }
   }
 `;
 
+const SectionImageBg = styled.div`
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 5%;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background-image: linear-gradient(
+    110deg,
+    var(--color-blue-dark),
+    var(--color-blue-light) 80%
+  );
+  transform: translateY(var(--translateY));
+
+  .flip-order & {
+    right: auto;
+    left: 5%;
+  }
+`;
+
 const SectionImage = styled.img`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 `;
 
 const SloganStyled = styled.div`
@@ -350,6 +349,7 @@ export default function Home() {
           <SectionStyled id="whatWeDo">
             <BgBall />
             <SectionImageWrapper className="parallax-combo">
+              <SectionImageBg />
               <SectionImage
                 src={CommunityImg}
                 alt="3d illustrated person riding a rocket"
@@ -377,6 +377,7 @@ export default function Home() {
           </SectionStyled>
           <SectionStyled>
             <SectionImageWrapper className="parallax-combo flip-order">
+              <SectionImageBg />
               <SectionImage
                 src={EntrepreneursImg}
                 alt="3d illustrated figures collaborating"
@@ -408,7 +409,9 @@ export default function Home() {
           </SectionStyled>
           <SectionStyled style={{ paddingBottom: '30vmin' }}>
             <SectionImageWrapper className="parallax-combo">
+              <SectionImageBg />
               <SectionImage
+                style={{ width: '70%', left: '15%', top: '-10%' }}
                 src={OrganisationsImg}
                 alt="3d illustrated mountain climber"
               />

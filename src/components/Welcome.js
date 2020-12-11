@@ -33,7 +33,7 @@ const SectionStyled = styled.section`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromRegularDesktopUp}) {
-    margin-top: 35vmin;
+    margin-top: calc(280 / 1440 * 100vw);
     padding-bottom: 8rem;
   }
 `;
@@ -68,44 +68,35 @@ const WelcomeImage = styled.img`
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     grid-row: auto;
+    margin-top: 35%;
   }
 `;
 
 const GreenBallStyled = styled.div`
-  width: 100vmin;
-  height: 100vmin;
   position: absolute;
-  display: none;
+  bottom: 3%;
+  left: 50%;
+  width: 50%;
+  transform: translateX(-50%);
+`;
+
+const GreenBallWrap = styled.div`
+  position: relative;
+  padding-top: 100%;
+`;
+
+const GreenBall = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   background-image: linear-gradient(
     45deg,
     rgba(33, 214, 116, 0.5) 18.9%,
     rgba(232, 253, 242, 0.5) 82.31%
   );
-  border-radius: 50%;
-  transform: translateX(-50%);
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletPortraitUp}) {
-    display: block;
-    bottom: 20%;
-    left: 0%;
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    bottom: 0%;
-    left: 50%;
-    width: 80vmin;
-    height: 80vmin;
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromRegularDesktopUp}) {
-    bottom: -10%;
-    left: 50%;
-    width: 85vmin;
-    height: 85vmin;
-  }
 `;
 
 export default function Welcome() {
@@ -116,17 +107,17 @@ export default function Welcome() {
         scrollTrigger: {
           trigger: '#WelcomeSection',
           start: 'top bottom',
-          end: 'bottom top',
+          end: 'bottom+=300 top',
           scrub: true,
         },
       });
 
       gsap.to('#welcomeImg', {
-        yPercent: '-15',
+        yPercent: '-20',
         scrollTrigger: {
           trigger: '#WelcomeSection',
           start: 'top bottom',
-          end: 'bottom top',
+          end: 'bottom+=300 top',
           scrub: true,
         },
       });
@@ -148,7 +139,11 @@ export default function Welcome() {
         src={welcomeImg}
         alt="3d illustrated person riding a rocket"
       />
-      <GreenBallStyled id="greenBall" />
+      <GreenBallStyled id="greenBall">
+        <GreenBallWrap>
+          <GreenBall />
+        </GreenBallWrap>
+      </GreenBallStyled>
       <SectionContentStyled>
         <SectionNameStyled level={2} color="pink">
           Welcome
