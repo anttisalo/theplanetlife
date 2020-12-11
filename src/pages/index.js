@@ -154,19 +154,25 @@ const LinkButtonStyled = styled(Link)`
   font-weight: 500;
   text-transform: uppercase;
   margin-top: 3rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   align-self: flex-start;
 
   span {
-    padding-top: 2px;
-    padding-bottom: 2px;
+    line-height: var(--line-height-interaction);
   }
 
   &:hover span {
-    padding-bottom: 1px;
-    border-bottom: 1px solid currentColor;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  svg {
+    fill: currentColor;
+    height: 1.25em;
+    margin-left: 1rem;
+    transition: transform 150ms ease-in-out;
   }
 
   &:hover svg {
@@ -178,6 +184,28 @@ const LinkButtonStyled = styled(Link)`
     outline-offset: 2px;
   }
 
+  .bg-blue & {
+    color: var(--color-white);
+  }
+`;
+
+const ButtonToggleContact = styled.button`
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--color-blue-light);
+  margin-top: 3rem;
+  padding: 0.5rem;
+  border: 0;
+  background-color: transparent;
+
+  span {
+    line-height: var(--line-height-interaction);
+  }
+
   svg {
     fill: currentColor;
     height: 1.25em;
@@ -185,33 +213,22 @@ const LinkButtonStyled = styled(Link)`
     transition: transform 150ms ease-in-out;
   }
 
-  .bg-blue & {
-    color: var(--color-white);
+  &:hover span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
-`;
 
-const ButtonToggleContact = styled.button`
-  position: relative;
-  font-size: 1rem;
-  line-height: var(--line-height-inline-interaction);
-  color: var(--color-blue-light);
-  text-transform: uppercase;
-  margin-top: 3rem;
-  padding: 1.5rem 2rem 1.375rem;
-  border: 1px solid var(--color-blue-light);
-  background-color: transparent;
-  cursor: pointer;
-  align-self: flex-start;
-  transition: background-color, color, 150ms ease-out;
-
-  .no-touch &:hover {
-    background-color: rgba(43, 30, 200, 0.75);
-    color: var(--color-white);
+  &:hover svg {
+    transform: translateX(10px);
   }
 
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.25);
     outline-offset: 2px;
+  }
+
+  .no-touch &:not(:focus-visible) {
+    outline: none;
   }
 
   .bg-blue & {
@@ -497,6 +514,9 @@ export default function Home() {
               </BgTransitionPara>
               <ButtonToggleContact onClick={toggleContactForm}>
                 <span>Contact us</span>
+                <svg viewBox="0 0 11 18">
+                  <path d="M1.72031 0.209961L0.640313 1.28246L8.35031 8.99246L0.632812 16.7025L1.70531 17.775L9.95531 9.52496L10.4653 8.98496L9.94781 8.44496L1.72031 0.209961Z" />
+                </svg>
               </ButtonToggleContact>
             </SectionContentStyled>
           </SectionStyled>

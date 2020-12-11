@@ -61,33 +61,44 @@ const FooterPara = styled(Para)`
 `;
 
 const GetInvolvedButtonLink = styled(Link)`
-  padding: 1.375rem 2rem;
+  display: inline-block;
+  font-size: 0.875rem;
   text-transform: uppercase;
   color: var(--color-blue-light);
-  background-color: var(--color-white);
-  transition: background-color 150ms ease-in;
-  display: inline-flex;
-  align-items: center;
+  padding: 1.375rem 2.5rem 1.25rem;
   margin-top: 2.5rem;
+  background-color: var(--color-white);
+  transition: transform 150ms ease-in;
 
   span {
+    position: relative;
     margin-bottom: -2px;
   }
 
-  svg {
-    fill: currentColor;
-    height: 1.25em;
-    margin-left: 1rem;
-    transition: transform 150ms ease-in-out;
+  .no-touch & span:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0;
+    bottom: -5px;
+    background-color: var(--color-blue-light);
+    transform: scaleY(0);
+    transition: transform 150ms ease-out;
   }
 
-  &:hover svg {
-    transform: translateX(5px);
+  .no-touch &:hover span:after {
+    transform: scaleY(1);
   }
 
   .no-touch &:focus {
     outline: 2px solid rgba(255, 255, 255, 0.5);
     outline-offset: 2px;
+  }
+
+  .no-touch &:not(:focus-visible) {
+    outline: none;
   }
 `;
 
@@ -196,9 +207,6 @@ export default function Footer() {
           </FooterPara>
           <GetInvolvedButtonLink to="#joinOurMission">
             <span>Get involved</span>
-            <svg viewBox="0 0 11 18">
-              <path d="M1.72031 0.209961L0.640313 1.28246L8.35031 8.99246L0.632812 16.7025L1.70531 17.775L9.95531 9.52496L10.4653 8.98496L9.94781 8.44496L1.72031 0.209961Z" />
-            </svg>
           </GetInvolvedButtonLink>
         </FooterCopy>
         <SomeLinks>
