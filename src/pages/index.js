@@ -463,6 +463,7 @@ export default function Home() {
               </Para>
               <LinkButtonStyled
                 to="https://forms.gle/XWXbYgGVUminD2qs8"
+                target="_blank"
                 color="blue-light"
               >
                 <span>Work with us</span>
