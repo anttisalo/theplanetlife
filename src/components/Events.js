@@ -9,16 +9,17 @@ const SectionStyled = styled.section`
   margin: 4rem auto 0;
   padding: 0 5% 5rem;
   background: linear-gradient(var(--color-white), var(--color-gray-light) 50%);
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    padding-bottom: 14.125rem;
+  }
 `;
 
 const SectionNameStyled = styled(Title)`
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 4rem;
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-  }
 `;
 
 const SectionHeadline = styled(Title)`

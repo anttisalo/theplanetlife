@@ -18,8 +18,8 @@ const ScrollingContainer = styled.div`
   padding-bottom: 30vmin;
   background-image: linear-gradient(
     to bottom,
-    var(--color-blue-dark) 0%,
-    var(--color-blue-light) 75%
+    var(--color-blue-dark) 66.78%,
+    var(--color-blue-light)
   );
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
@@ -122,21 +122,21 @@ const GlobeStyled = styled.iframe`
 
 const RoundedEndWrapper = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   width: 100%;
-  height: 25vmin;
+  height: 20vmin;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    bottom: -25vmin;
+    bottom: -20vmin;
     background-color: var(--color-blue-light);
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromRegularDesktopUp}) {
-    height: 35vmin;
-    bottom: -35vmin;
+    height: calc(280 / 1440 * 100vw);
+    bottom: calc(280 / 1440 * -100vw);
   }
 `;
 
@@ -223,11 +223,11 @@ export default function Hero(props) {
         />
         <RoundedEndWrapper>
           <ClippingSvg
-            viewBox="0 0 375 95"
+            viewBox="0 0 1440 282"
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"
           >
-            <path d="M0 90.8412L0 95H375V0H374.932C284.687 59.4221 176.631 94 60.5 94C40.0656 94 19.8813 92.9294 0 90.8412Z" />
+            <path d="M0 220.851L0 282H1440V0.327148C1157.23 177.543 822.829 280 464.5 280C304.039 280 148.377 259.455 0 220.851Z" />
           </ClippingSvg>
           <ArrowDownWrapper>
             <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
