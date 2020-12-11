@@ -22,7 +22,7 @@ const SectionNameStyled = styled(Title)`
 `;
 
 const SectionHeadline = styled(Title)`
-  max-width: 55rem;
+  max-width: 50rem;
   margin-bottom: 3rem;
 `;
 
@@ -62,7 +62,7 @@ export default function Events({ eventsData }) {
       <SectionNameStyled level={2} color="pink">
         Events
       </SectionNameStyled>
-      <SectionHeadline level={3}>
+      <SectionHeadline level={4}>
         We create an action oriented environment where people get to be part of
         a community supporting environmental projects.
       </SectionHeadline>
