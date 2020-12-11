@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Accordion from './Accordion';
 import Title from './Title';
 import Para from './Paragraph';
+import SwirlIllustration from '../static/Swirl_Break.png';
 
 const SectionStyled = styled.section`
   position: relative;
@@ -59,6 +60,20 @@ const AccordionPara = styled(Para)`
   }
 `;
 
+const AmoebaImg = styled.img`
+  display: none;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    display: block;
+    position: absolute;
+    right: 5%;
+    top: 0;
+    width: 20%;
+    transform: translateY(-100%);
+  }
+`;
+
 export default function HowItWorks() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -85,6 +100,11 @@ export default function HowItWorks() {
 
   return (
     <SectionStyled id="howItWorks" tabindex="-1">
+      <AmoebaImg
+        src={SwirlIllustration}
+        alt="filler illustration"
+        aria-hidden="true"
+      />
       <SectionNameStyled level={2} color="pink">
         How it works
       </SectionNameStyled>

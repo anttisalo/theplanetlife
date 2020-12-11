@@ -6,7 +6,6 @@ import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import Title from '../components/Title';
-import JoinUsForm from '../components/JoinUsForm';
 import Para from '../components/Paragraph';
 import HowItWorks from '../components/HowItWorks';
 import BgBall from '../components/BgBall';
@@ -14,11 +13,14 @@ import Welcome from '../components/Welcome';
 import theme from '../../styled-theme';
 import Events from '../components/Events';
 import Footer from '../components/Footer';
+import Link from '../components/Link';
+import JoinUs from '../components/JoinUs';
+import ContactForm from '../components/ContactForm';
 import CommunityImg from '../static/3D_Community.png';
 import EntrepreneursImg from '../static/3D_Entrepreneurs.png';
 import OrganisationsImg from '../static/3D_Organisations.png';
-import Link from '../components/Link';
-import ContactForm from '../components/ContactForm';
+import SloganIllustration from '../static/Circles_Break.png';
+import FireworksIllustration from '../static/Join_fireworks.png';
 import eventsData from '../events/events.yaml';
 import 'normalize.css';
 
@@ -29,6 +31,20 @@ const MainStyled = styled.main`
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
     padding-bottom: 5rem;
+  }
+`;
+
+const FireworksImg = styled.img`
+  display: none;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    display: block;
+    position: absolute;
+    right: 50%;
+    bottom: 0;
+    width: 10%;
+    transform: translate(350%, 50%);
   }
 `;
 
@@ -106,18 +122,32 @@ const SectionImage = styled.img`
 
 const SloganStyled = styled.div`
   position: relative;
-  max-width: 35rem;
+  width: 100;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15vmax 0;
   text-align: center;
-  margin: 30vmax auto;
-  padding: 0 5vmin;
+
+  h3 {
+    max-width: 18ch;
+  }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
-    padding: 0;
-    margin-top: 30vmin;
-    margin-bottom: 20vmin;
+  }
+`;
+
+const SloganImg = styled.img`
+  display: none;
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletPortraitUp}) {
+    display: block;
+    position: absolute;
+    right: -2%;
+    top: 20%;
+    width: 17.5%;
   }
 `;
 
@@ -236,125 +266,6 @@ const ButtonToggleContact = styled.button`
   }
 `;
 
-const JoinOurMission = styled.section`
-  position: relative;
-  max-width: 55rem;
-  min-height: 100vw;
-  margin: 10% 1.5rem 0;
-  display: flex;
-  align-items: center;
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.aux['480Up']}) {
-    margin-top: 35%;
-    margin-bottom: 35%;
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletPortraitUp}) {
-    margin: 8rem auto;
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    min-height: 0;
-  }
-
-  &:before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    padding-top: 0;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: linear-gradient(
-      154deg,
-      var(--color-gray-light) 33.99%,
-      rgba(249, 251, 255, 0.5) 86.44%
-    );
-    z-index: 1;
-
-    @media (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.fromTabletPortraitUp}) {
-      width: 120%;
-      padding-top: 120%;
-    }
-
-    @media (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.fromTabletLandscapeUp}) {
-      width: 100%;
-      padding-top: 100%;
-    }
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-radius: 50%;
-    transform: translate(-16%, 6%);
-    background: linear-gradient(
-      163.02deg,
-      rgba(33, 214, 116, 0.6) 10.18%,
-      rgba(232, 253, 242, 0.6) 106.36%
-    );
-    z-index: 0;
-
-    @media (min-width: ${({ theme: { breakpoints } }) =>
-        breakpoints.fromTabletLandscapeUp}) {
-      width: 75%;
-      height: 75%;
-    }
-  }
-`;
-
-const JoinOurMissionWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  text-align: center;
-  padding-top: 100%;
-`;
-
-const JoinUsTitle = styled(Title)`
-  transition: color 300ms ease-in;
-
-  .bg-blue & {
-    color: var(--color-white);
-  }
-`;
-
-const JoinUsPara = styled(Para)`
-  transition: color 300ms ease-in;
-
-  .bg-blue & {
-    color: var(--color-white);
-  }
-`;
-
-const JoinUsContentStyled = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  transform: translateY(-50%);
-  z-index: 2;
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletPortraitUp}) {
-    padding-left: 6rem;
-    padding-right: 6rem;
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    padding-left: 20%;
-    padding-right: 20%;
-  }
-`;
-
 export default function Home() {
   useEffect(() => {
     const touchsupport =
@@ -430,6 +341,11 @@ export default function Home() {
               We bridge the gap between cause and motivation by matching
               projects to people.
             </Title>
+            <SloganImg
+              src={SloganIllustration}
+              alt="filler illustration"
+              aria-hidden="true"
+            />
           </SloganStyled>
           <SectionStyled id="whatWeDo">
             <BgBall />
@@ -521,19 +437,12 @@ export default function Home() {
             </SectionContentStyled>
           </SectionStyled>
           <HowItWorks />
-          <JoinOurMission id="joinOurMission">
-            <JoinOurMissionWrapper>
-              <JoinUsContentStyled>
-                <JoinUsTitle level={3}>Join our mission</JoinUsTitle>
-                <JoinUsPara mb="0" mt="1.5rem">
-                  Together we can combine our forces. Are you eager to make a
-                  change and contribute to a healthy planet and society?
-                  Register below and stay up to date on our progress and events.
-                </JoinUsPara>
-                <JoinUsForm />
-              </JoinUsContentStyled>
-            </JoinOurMissionWrapper>
-          </JoinOurMission>
+          <JoinUs />
+          <FireworksImg
+            src={FireworksIllustration}
+            alt="filler illustration"
+            aria-hidden="true"
+          />
         </MainStyled>
         <Events eventsData={eventsData} />
         <Footer />
