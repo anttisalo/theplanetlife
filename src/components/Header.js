@@ -21,15 +21,17 @@ const HeaderStyled = styled.header`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 7.625rem;
     padding-right: 5%;
     padding-left: 5%;
   }
 
   .animation-end & {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
     padding-top: 1.1875rem;
     padding-bottom: 1.1875rem;
     background-color: rgba(255, 255, 255, 1);

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'gatsby';
 import Para from './Paragraph';
 
 const HeroStyled = styled.div`
@@ -38,6 +39,25 @@ const ScrollingContainer = styled.div`
   }
 `;
 
+const ContentGrid = styled.div`
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    margin: 7.625rem auto 0;
+    width: 100%;
+    max-width: 80rem;
+    height: calc(100vh - 7.625rem);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const ContentGridCell = styled.div`
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    position: relative;
+  }
+`;
+
 const titleDefaultStyle = css`
   font-size: 1.125rem;
   color: var(--color-white);
@@ -53,18 +73,14 @@ const titleDefaultStyle = css`
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     position: absolute;
-    top: 35%;
-    left: 40%;
-    transform: translateX(-70%);
+    top: 25%;
+    left: 12%;
     max-width: 30ch;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromRegularDesktopUp}) {
-    font-size: 2.25rem;
-    max-width: 22ch;
-    padding-left: 0rem;
-    padding-right: 4rem;
+    font-size: 1.75rem;
   }
 `;
 
@@ -83,7 +99,9 @@ const Title2 = styled(Para)`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    opacity: 0;
+    span {
+      opacity: 0;
+    }
   }
 `;
 
@@ -104,19 +122,22 @@ const GlobeStyled = styled.iframe`
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     position: absolute;
-    left: 50%;
-    top: 25%;
-    width: 60vmin;
-    height: 60vmin;
+    left: 0;
+    top: 0;
+    width: calc(100vh - 7.625rem);
+    height: calc(100vh - 7.625rem);
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) and (orientation: landscape) {
+    left: -25%;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromRegularDesktopUp}) {
     position: absolute;
-    left: 50%;
-    top: 20%;
-    width: 70vmin;
-    height: 70vmin;
+    width: calc(100vh - 7.625rem);
+    height: calc(100vh - 7.625rem);
   }
 `;
 
@@ -146,29 +167,25 @@ const ClippingSvg = styled.svg`
   fill: var(--color-white);
 `;
 
-const ArrowDownWrapper = styled.div`
-  background-color: var(--color-white);
-  border-radius: 50%;
+const ArrowDown = styled.svg`
   position: absolute;
   bottom: 0;
   left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
+  stroke: var(--color-blue-light);
+  fill: none;
+  width: 2em;
+  height: 2em;
+  background-color: white;
+  border-radius: 50%;
   padding: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    fill: var(--color-blue-light);
-    width: 2em;
-    height: 2em;
-  }
+  transform: translate(-50%, 25%);
+  z-index: 2;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromBigDesktopUp}) {
-    bottom: 8%;
+      breakpoints.fromTabletLandscapeUp}) {
+    bottom: -200%;
+    left: 0;
+    transform: translate(50%, 0);
   }
 `;
 
@@ -199,7 +216,7 @@ export default function Hero(props) {
 
     if (window.matchMedia('(min-width: 900px)').matches) {
       timeline.to('#title1', { opacity: 0, duration: 2 });
-      timeline.to('#title2', { opacity: 1, duration: 2 });
+      timeline.to('#title2 > span', { opacity: 1, duration: 2 });
     }
   });
 
@@ -207,18 +224,36 @@ export default function Hero(props) {
     <HeroStyled id="hero" ref={heroRef}>
       <ScrollingContainer>
         {Header}
-        <Title1 level={1} id="title1" color="white">
-          The condition in which future generations will inherit our planet
-          depends on our attitude and the actions we take today.
-        </Title1>
-        <Title2 level={1} id="title2" color="white">
-          It’s time to unlock the world's knowledge and turn a sustainable
-          society into a reality.
-        </Title2>
-        <GlobeStyled
-          tabIndex="-1"
-          src="https://tender-wing-c45ced.netlify.app/"
-        />
+        <ContentGrid>
+          <ContentGridCell>
+            <Title1 level={1} id="title1" color="white">
+              The condition in which future generations will inherit our planet
+              depends on our attitude and the actions we take today.
+            </Title1>
+            <Title2 level={1} id="title2" color="white">
+              <span>
+                It’s time to unlock the world's knowledge and turn a sustainable
+                society into a reality.
+              </span>
+              <a href="#WelcomeSection" aria-label="To welcome section">
+                <ArrowDown viewBox="0 0 20 26">
+                  <path
+                    d="M18.6758 16.0547L9.83695 24.8935L0.998112 16.0547"
+                    strokeWidth="2"
+                    strokeLinejoin="round"
+                  />
+                  <line x1="9.80859" y1="24" x2="9.80859" strokeWidth="2" />
+                </ArrowDown>
+              </a>
+            </Title2>
+          </ContentGridCell>
+          <ContentGridCell>
+            <GlobeStyled
+              tabIndex="-1"
+              src="https://tender-wing-c45ced.netlify.app/"
+            />
+          </ContentGridCell>
+        </ContentGrid>
         <RoundedEndWrapper>
           <ClippingSvg
             viewBox="0 0 1440 282"
@@ -227,15 +262,6 @@ export default function Hero(props) {
           >
             <path d="M0 220.851L0 282H1440V0.327148C1157.23 177.543 822.829 280 464.5 280C304.039 280 148.377 259.455 0 220.851Z" />
           </ClippingSvg>
-          <ArrowDownWrapper>
-            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path
-                fillRule="evenodd"
-                d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </ArrowDownWrapper>
         </RoundedEndWrapper>
       </ScrollingContainer>
     </HeroStyled>
