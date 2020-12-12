@@ -266,6 +266,8 @@ const ButtonToggleContact = styled.button`
 `;
 
 export default function Home() {
+  gsap.registerPlugin(ScrollTrigger);
+
   useEffect(() => {
     const touchsupport =
       // eslint-disable-next-line prettier/prettier
@@ -277,7 +279,6 @@ export default function Home() {
       document.documentElement.classList.add('no-touch');
     }
 
-    gsap.registerPlugin(ScrollTrigger);
     if (window.matchMedia('(min-width: 900px)').matches) {
       gsap.utils.toArray('.parallax-combo').forEach((container) => {
         const img = container.querySelector('img');
