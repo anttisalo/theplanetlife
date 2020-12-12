@@ -37,9 +37,9 @@ const BallStyled = styled.div`
 `;
 
 export default function BgBall() {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
+  useEffect(() => {
     gsap.to('#bgBall', {
       yPercent: '3',
       scrollTrigger: {

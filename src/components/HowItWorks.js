@@ -75,8 +75,9 @@ const AmoebaImg = styled.img`
 `;
 
 export default function HowItWorks() {
+  gsap.registerPlugin(ScrollTrigger);
+
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
     const layoutWrapper = document.getElementById('layoutWrapper');
     ScrollTrigger.create({
       trigger: '#howItWorks',

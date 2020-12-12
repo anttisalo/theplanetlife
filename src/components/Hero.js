@@ -9,7 +9,7 @@ const HeroStyled = styled.div`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    height: 160vh;
+    height: 200vh;
   }
 `;
 
@@ -173,35 +173,33 @@ const ArrowDownWrapper = styled.div`
 `;
 
 export default function Hero(props) {
+  gsap.registerPlugin(ScrollTrigger);
   const { children: Header } = props;
   const heroRef = useRef();
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const timeline = gsap.timeline();
 
-    const tl = gsap.timeline({
-      defaults: {
-        scrollTrigger: {
-          trigger: '#hero',
-          start: '+=300px top',
-          end: 'bottom bottom',
-          scrub: 1,
-          onUpdate: (self) => {
-            if (self.progress.toFixed(3) < 1) {
-              if (heroRef.current.classList.contains('animation-end')) {
-                heroRef.current.classList.remove('animation-end');
-              }
-            } else if (!heroRef.current.classList.contains('animation-end')) {
-              heroRef.current.classList.add('animation-end');
-            }
-          },
-        },
+    ScrollTrigger.create({
+      animation: timeline,
+      trigger: heroRef.current,
+      start: '+=300px top',
+      end: 'bottom bottom',
+      scrub: 0.5,
+      onUpdate: (self) => {
+        if (self.progress.toFixed(3) < 1) {
+          if (heroRef.current.classList.contains('animation-end')) {
+            heroRef.current.classList.remove('animation-end');
+          }
+        } else if (!heroRef.current.classList.contains('animation-end')) {
+          heroRef.current.classList.add('animation-end');
+        }
       },
     });
 
     if (window.matchMedia('(min-width: 900px)').matches) {
-      tl.to('#title1', { opacity: 0, duration: 2 });
-      tl.to('#title2', { opacity: 1, duration: 2 });
+      timeline.to('#title1', { opacity: 0, duration: 2 });
+      timeline.to('#title2', { opacity: 1, duration: 2 });
     }
   });
 

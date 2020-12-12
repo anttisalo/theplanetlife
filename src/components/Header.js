@@ -10,7 +10,9 @@ const HeaderStyled = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  z-index: 2;
+  z-index: 3;
+  background-color: rgba(255, 255, 255, 0);
+  transition: background-color, padding-top, padding-bottom, 150ms ease-out;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
@@ -21,6 +23,16 @@ const HeaderStyled = styled.header`
       breakpoints.fromTabletLandscapeUp}) {
     padding-right: 5%;
     padding-left: 5%;
+  }
+
+  .animation-end & {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 1.1875rem;
+    padding-bottom: 1.1875rem;
+    background-color: rgba(255, 255, 255, 1);
   }
 `;
 
@@ -39,8 +51,6 @@ const LogoLink = styled(Link)`
   }
 `;
 
-const NavStyled = styled.nav``;
-
 const ToggleButton = styled.button`
   position: relative;
   padding: 0.25rem;
@@ -52,9 +62,17 @@ const ToggleButton = styled.button`
   color: var(--color-white);
   z-index: 2;
 
+  .animation-end & {
+    color: var(--color-blue-light);
+  }
+
   &:focus {
     outline: 2px solid rgba(255, 255, 255, 0.5);
     outline-offset: 2px;
+  }
+
+  .animation-end &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.25);
   }
 
   svg {
@@ -63,7 +81,7 @@ const ToggleButton = styled.button`
   }
 
   svg rect {
-    transition: transform, opacity, width, 150ms ease-out;
+    transition: all 150ms ease-out;
   }
 
   &[aria-expanded='true'] rect:first-child {
@@ -97,6 +115,10 @@ const NavListContainer = styled.div`
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25),
     0px 0px 0px 0px rgba(0, 0, 0, 0.16);
   transition: box-shadow, max-height, 150ms ease-out;
+
+  .animation-end & {
+    background-color: var(--color-white);
+  }
 
   [aria-expanded='true'] + & {
     max-height: 345px;
@@ -136,11 +158,6 @@ const NavListStyled = styled.ul`
 `;
 
 const NavItemStyled = styled.li`
-  color: var(--color-white);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  line-height: var(--line-height-inline-interaction);
   margin: 1.25rem 0;
 
   &:last-child {
@@ -164,8 +181,14 @@ const NavItemStyled = styled.li`
 `;
 
 const NavLinkStyled = styled(Link)`
-  font-size: 0.875rem;
   padding: 0.25rem;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  transition: color 150ms ease-out;
+
+  .animation-end & {
+    color: var(--color-blue-light);
+  }
 
   .no-touch &:after {
     content: '';
@@ -173,7 +196,7 @@ const NavLinkStyled = styled(Link)`
     position: absolute;
     width: 100%;
     height: 2px;
-    bottom: -5px;
+    bottom: -2px;
     background-color: var(--color-green-mid);
     transform: scaleY(0);
     transition: transform 150ms ease-out;
@@ -190,6 +213,10 @@ const NavLinkStyled = styled(Link)`
 
   .no-touch &:not(:focus-visible) {
     outline: none;
+  }
+
+  .no-touch .animation-end &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.25);
   }
 `;
 
@@ -203,6 +230,11 @@ const ButtonToggleContact = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+  transition: color 150ms ease-out;
+
+  .animation-end & {
+    color: var(--color-blue-light);
+  }
 
   .no-touch &:after {
     content: '';
@@ -211,7 +243,7 @@ const ButtonToggleContact = styled.button`
     width: 100%;
     height: 2px;
     left: 0;
-    bottom: -5px;
+    bottom: -2px;
     background-color: var(--color-green-mid);
     transform: scaleY(0);
     transition: transform 150ms ease-out;
@@ -229,6 +261,10 @@ const ButtonToggleContact = styled.button`
   .no-touch &:not(:focus-visible) {
     outline: none;
   }
+
+  .no-touch .animation-end &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.25);
+  }
 `;
 
 const GetInvolvedButtonLink = styled(Link)`
@@ -237,7 +273,12 @@ const GetInvolvedButtonLink = styled(Link)`
   text-transform: uppercase;
   color: var(--color-blue-light);
   background-color: var(--color-white);
-  transition: transform 150ms ease-in;
+  transition: transform, color, background-color, 150ms ease-in;
+
+  .animation-end & {
+    color: var(--color-white);
+    background-color: var(--color-blue-light);
+  }
 
   span {
     position: relative;
@@ -257,6 +298,10 @@ const GetInvolvedButtonLink = styled(Link)`
     transition: transform 150ms ease-out;
   }
 
+  .no-touch .animation-end & span:after {
+    background-color: var(--color-white);
+  }
+
   .no-touch &:hover span:after {
     transform: scaleY(1);
   }
@@ -268,6 +313,10 @@ const GetInvolvedButtonLink = styled(Link)`
 
   .no-touch &:not(:focus-visible) {
     outline: none;
+  }
+
+  .no-touch .animation-end &:focus {
+    outline: 2px solid rgba(43, 30, 200, 0.25);
   }
 `;
 
@@ -295,7 +344,7 @@ export default function Header({ toggleContactForm }) {
       <LogoLink to="/" ariaLabel="Home" fontSize="0">
         <img src={logo} alt="The planet life logo" />
       </LogoLink>
-      <NavStyled>
+      <nav>
         <ToggleButton onClick={toggleMenu} aria-expanded={expanded}>
           <svg viewBox="0 0 100 100">
             <rect x="15" y="20" width="70" height="8" fill="currentColor" />
@@ -330,7 +379,7 @@ export default function Header({ toggleContactForm }) {
             </NavItemStyled>
           </NavListStyled>
         </NavListContainer>
-      </NavStyled>
+      </nav>
     </HeaderStyled>
   );
 }

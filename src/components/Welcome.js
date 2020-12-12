@@ -100,6 +100,8 @@ const GreenBall = styled.div`
 `;
 
 export default function Welcome() {
+  gsap.registerPlugin(ScrollTrigger);
+
   const setParallax = () => {
     if (window.matchMedia('(min-width: 900px)').matches) {
       gsap.to('#greenBall', {
@@ -125,10 +127,7 @@ export default function Welcome() {
   };
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     setParallax();
-
     window.addEventListener('resize', setParallax);
   });
 
