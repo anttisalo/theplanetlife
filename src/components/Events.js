@@ -49,8 +49,13 @@ export default function Events({ eventsData }) {
 
     const isInTimeRange = (event) => {
       const now = new Date();
-      const eventDate = new Date(event.start_date);
-      return comparison(now, eventDate);
+      let eventDate;
+
+      if (Date.parse(event.start_date)) {
+        eventDate = new Date(event.start_date);
+        return comparison(now, eventDate);
+      }
+      return comparison(now, Date.now() + 99999999999);
     };
 
     const filteredEvents = eventsData.filter(isInTimeRange);

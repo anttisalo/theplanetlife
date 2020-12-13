@@ -17,31 +17,23 @@ const EventsStyled = styled.div`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2.5rem;
     overflow-x: auto;
-    padding: 0.5rem;
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
     scroll-snap-type: x mandatory;
   }
 `;
 
 const EventCardStyled = styled.div`
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
   background-color: var(--color-white);
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
-    width: 40vw;
-    flex: 0 0 auto;
-    margin-right: 3vw;
+    width: 100%;
     margin-bottom: 0;
     scroll-snap-align: end;
-  }
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromRegularDesktopUp}) {
-    width: 33.33%;
   }
 `;
 
@@ -130,7 +122,11 @@ export default function EventsList({ events }) {
               <EventTitle>
                 <EventLink to={event.event_url}>{event.title}</EventLink>
               </EventTitle>
-              <EventDate>{getTimeString(event.start_date)}</EventDate>
+              <EventDate>
+                {event.start_date
+                  ? getTimeString(event.start_date)
+                  : 'Coming soon'}
+              </EventDate>
               <EventDescription>{event.description}</EventDescription>
             </EventContentContainer>
           </EventCardStyled>

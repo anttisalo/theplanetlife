@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'gatsby';
 import Para from './Paragraph';
 
 const HeroStyled = styled.div`
@@ -48,6 +47,10 @@ const ContentGrid = styled.div`
     height: calc(100vh - 7.625rem);
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+
+  .animation-end & {
+    margin-top: 7.625rem;
   }
 `;
 
@@ -134,10 +137,8 @@ const GlobeStyled = styled.iframe`
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromRegularDesktopUp}) {
-    position: absolute;
-    width: calc(100vh - 7.625rem);
-    height: calc(100vh - 7.625rem);
+      breakpoints.fromBigDesktopUp}) {
+    left: 0;
   }
 `;
 
@@ -167,19 +168,14 @@ const ClippingSvg = styled.svg`
   fill: var(--color-white);
 `;
 
-const ArrowDown = styled.svg`
+const ArrowDownLink = styled.a`
   position: absolute;
   bottom: 0;
   left: 50%;
-  stroke: var(--color-blue-light);
-  fill: none;
-  width: 2em;
-  height: 2em;
-  background-color: white;
-  border-radius: 50%;
-  padding: 0.75rem;
-  transform: translate(-50%, 25%);
+  font-size: 0;
   z-index: 2;
+  transform: translate(-50%, 25%);
+  transition: transform 150ms ease-out;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
@@ -187,6 +183,33 @@ const ArrowDown = styled.svg`
     left: 0;
     transform: translate(50%, 0);
   }
+
+  &:focus {
+    outline: none;
+  }
+
+  .no-touch &:hover {
+    transform: translate(50%, 5%);
+  }
+
+  .no-touch &:focus svg {
+    box-shadow: 0px 0px 0px 3px rgba(255, 255, 255, 0.5);
+  }
+
+  .no-touch &:not(:focus-visible) svg {
+    box-shadow: none;
+  }
+`;
+
+const ArrowDown = styled.svg`
+  stroke: var(--color-blue-light);
+  fill: none;
+  width: 2em;
+  height: 2em;
+  background-color: white;
+  border-radius: 50%;
+  padding: 0.75rem;
+  font-size: 1.75rem;
 `;
 
 export default function Hero(props) {
@@ -235,7 +258,10 @@ export default function Hero(props) {
                 It’s time to unlock the world's knowledge and turn a sustainable
                 society into a reality.
               </span>
-              <a href="#WelcomeSection" aria-label="To welcome section">
+              <ArrowDownLink
+                href="#WelcomeSection"
+                aria-label="To welcome section"
+              >
                 <ArrowDown viewBox="0 0 20 26">
                   <path
                     d="M18.6758 16.0547L9.83695 24.8935L0.998112 16.0547"
@@ -244,7 +270,7 @@ export default function Hero(props) {
                   />
                   <line x1="9.80859" y1="24" x2="9.80859" strokeWidth="2" />
                 </ArrowDown>
-              </a>
+              </ArrowDownLink>
             </Title2>
           </ContentGridCell>
           <ContentGridCell>
