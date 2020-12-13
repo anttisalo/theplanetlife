@@ -76,25 +76,11 @@ const GetInvolvedButtonLink = styled(Link)`
   transition: transform 150ms ease-in;
 
   span {
-    position: relative;
     margin-bottom: -2px;
   }
 
-  .no-touch & span:after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    left: 0;
-    bottom: -5px;
-    background-color: var(--color-blue-light);
-    transform: scaleY(0);
-    transition: transform 150ms ease-out;
-  }
-
-  .no-touch &:hover span:after {
-    transform: scaleY(1);
+  .no-touch &:hover {
+    background-color: #dbdae9;
   }
 
   .no-touch &:focus {

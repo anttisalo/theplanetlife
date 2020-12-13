@@ -37,7 +37,7 @@ const SuccessStyled = styled.span`
 
 const SubmitStyled = styled.button`
   width: 100%;
-  background-color: var(--color-cta-primary);
+  background-color: var(--color-blue-light);
   color: var(--color-white);
   font-size: 1rem;
   line-height: var(--line-height-inline-interaction);
@@ -48,12 +48,16 @@ const SubmitStyled = styled.button`
   cursor: pointer;
 
   .no-touch &:hover {
-    background-color: rgba(43, 30, 200, 0.85);
+    background-color: var(--color-blue-dark);
   }
 
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.5);
     outline-offset: 2px;
+  }
+
+  .no-touch &:not(:focus-visible) {
+    outline: none;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>

@@ -6,6 +6,7 @@ import logo from '../static/tplLogo.png';
 
 const HeaderStyled = styled.header`
   position: relative;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,15 +22,19 @@ const HeaderStyled = styled.header`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 7.625rem;
     padding-right: 5%;
     padding-left: 5%;
   }
 
   .animation-end & {
+    height: auto;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
     padding-top: 1.1875rem;
     padding-bottom: 1.1875rem;
     background-color: rgba(255, 255, 255, 1);
@@ -275,35 +280,21 @@ const GetInvolvedButtonLink = styled(Link)`
   background-color: var(--color-white);
   transition: transform, color, background-color, 150ms ease-in;
 
+  .no-touch &:hover {
+    background-color: #dbdae9;
+  }
+
   .animation-end & {
     color: var(--color-white);
     background-color: var(--color-blue-light);
   }
 
+  .no-touch .animation-end &:hover {
+    background-color: var(--color-blue-dark);
+  }
+
   span {
-    position: relative;
     margin-bottom: -2px;
-  }
-
-  .no-touch & span:after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    left: 0;
-    bottom: -5px;
-    background-color: var(--color-blue-light);
-    transform: scaleY(0);
-    transition: transform 150ms ease-out;
-  }
-
-  .no-touch .animation-end & span:after {
-    background-color: var(--color-white);
-  }
-
-  .no-touch &:hover span:after {
-    transform: scaleY(1);
   }
 
   .no-touch &:focus {

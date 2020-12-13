@@ -14,6 +14,10 @@ const SectionStyled = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(calc(18.25rem - 37.5px), 1fr));
   grid-gap: 2rem;
 
+  &:focus {
+    outline: none;
+  }
+
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
     .flip-order {
@@ -132,7 +136,7 @@ export default function Welcome() {
   });
 
   return (
-    <SectionStyled id="WelcomeSection">
+    <SectionStyled id="WelcomeSection" tabIndex="-1">
       <WelcomeImage
         id="welcomeImg"
         src={welcomeImg}
