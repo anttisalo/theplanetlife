@@ -5,7 +5,9 @@ import Link from './Link';
 import logo from '../static/tplLogo.png';
 
 const HeaderStyled = styled.header`
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -22,9 +24,6 @@ const HeaderStyled = styled.header`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    position: absolute;
-    top: 0;
-    left: 0;
     height: 7.625rem;
     padding-right: 5%;
     padding-left: 5%;
@@ -43,7 +42,7 @@ const HeaderStyled = styled.header`
 
 const LogoLink = styled(Link)`
   display: inline-block;
-  height: 2.6875rem;
+  height: 2.75rem;
   z-index: 2;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
