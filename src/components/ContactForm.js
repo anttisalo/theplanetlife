@@ -206,10 +206,19 @@ const SubmitStyled = styled.button`
   border: 0;
   margin-top: 3.25rem;
   transition: outline, background-color, 150ms ease-out;
+  cursor: pointer;
+
+  .no-touch &:hover {
+    background-color: var(--color-blue-dark);
+  }
 
   .no-touch &:focus {
     outline: 2px solid rgba(43, 30, 200, 0.5);
     outline-offset: 2px;
+  }
+
+  .no-touch &:not(:focus-visible) {
+    outline: none;
   }
 
   &.form-sent {
