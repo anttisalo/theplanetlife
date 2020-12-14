@@ -6,16 +6,11 @@ import Para from './Paragraph';
 
 const HeroStyled = styled.div`
   position: relative;
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    height: 200vh;
-  }
 `;
 
 const ScrollingContainer = styled.div`
   width: 100%;
-  padding-bottom: 30vmin;
+  height: calc(100vh + 20vmin);
   background-image: linear-gradient(
     to bottom,
     var(--color-blue-dark) 66.78%,
@@ -23,88 +18,78 @@ const ScrollingContainer = styled.div`
   );
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    position: fixed;
-    top: 0;
-    left: 0;
+      breakpoints.fromTabletPortraitUp}) {
     height: 100vh;
-    padding-bottom: 0;
+  }
 
-    .animation-end & {
-      position: absolute;
-      top: auto;
-      bottom: 0;
-    }
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) and (orientation: portrait) {
+    height: 50vh;
   }
 `;
 
 const ContentGrid = styled.div`
+  padding-top: 5.25rem;
+
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    margin: 7.625rem auto 0;
-    width: 100%;
-    max-width: 80rem;
-    height: calc(100vh - 7.625rem);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    padding-top: 7.625rem;
   }
 
-  .animation-end & {
-    margin-top: 7.625rem;
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100vw;
+    height: calc(50vw + 7.625rem);
+    max-width: 80rem;
+    max-height: 47.625rem;
+    margin: 0 auto;
   }
 `;
 
 const ContentGridCell = styled.div`
+  &:first-child {
+    padding-top: 5%;
+    padding-left: 7%;
+  }
+
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     position: relative;
+
+    &:first-child {
+      padding-top: 20%;
+      padding-left: 10%;
+    }
+  }
+
+  @media (min-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromBigDesktopUp}) {
+    &:first-child {
+      padding-top: 19vh;
+    }
   }
 `;
 
-const titleDefaultStyle = css`
-  font-size: 1.125rem;
+const Headline = styled(Para)`
   color: var(--color-white);
-  padding-left: 2rem;
-  padding-right: 2rem;
+  max-width: 33ch;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletPortraitUp}) {
     font-size: 1.5rem;
-    max-width: 40ch;
+    max-width: 33ch;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    position: absolute;
-    top: 25%;
-    left: 12%;
-    max-width: 30ch;
+    max-width: 25ch;
   }
 
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromRegularDesktopUp}) {
-    font-size: 1.75rem;
-  }
-`;
-
-const Title1 = styled(Para)`
-  ${titleDefaultStyle};
-  margin-top: 10vmin;
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    margin-top: 1rem;
-  }
-`;
-
-const Title2 = styled(Para)`
-  ${titleDefaultStyle};
-
-  @media (min-width: ${({ theme: { breakpoints } }) =>
-      breakpoints.fromTabletLandscapeUp}) {
-    span {
-      opacity: 0;
-    }
+  @media (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) and (orientation: landscape) {
+    font-size: 1rem;
   }
 `;
 
@@ -112,7 +97,7 @@ const GlobeStyled = styled.iframe`
   display: block;
   width: 90vmin;
   height: 90vmin;
-  margin: 4rem auto 2rem;
+  margin: 0 auto;
   border: 0;
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
@@ -122,23 +107,32 @@ const GlobeStyled = styled.iframe`
     height: 70vmin;
   }
 
+  @media (max-width: ${({ theme: { breakpoints } }) =>
+      breakpoints.fromTabletLandscapeUp}) and (orientation: landscape) {
+    display: none;
+  }
+
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
     position: absolute;
     left: 0;
     top: 0;
-    width: calc(100vh - 7.625rem);
-    height: calc(100vh - 7.625rem);
+    width: 50vw;
+    height: 50vw;
+    max-width: 40rem;
+    max-height: 40rem;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) and (orientation: landscape) {
-    left: -25%;
+    left: -15%;
   }
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromBigDesktopUp}) {
-    left: 0;
+    left: -5%;
+    max-width: 85vh;
+    max-height: 85vh;
   }
 `;
 
@@ -169,6 +163,7 @@ const ClippingSvg = styled.svg`
 `;
 
 const ArrowDownLink = styled.a`
+  display: inline-block;
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -179,9 +174,9 @@ const ArrowDownLink = styled.a`
 
   @media (min-width: ${({ theme: { breakpoints } }) =>
       breakpoints.fromTabletLandscapeUp}) {
-    bottom: -200%;
-    left: 0;
-    transform: translate(50%, 0);
+    position: static;
+    margin-top: 15%;
+    transform: none;
   }
 
   &:focus {
@@ -189,7 +184,7 @@ const ArrowDownLink = styled.a`
   }
 
   .no-touch &:hover {
-    transform: translate(50%, 5%);
+    transform: translateY(5%);
   }
 
   .no-touch &:focus svg {
@@ -218,13 +213,10 @@ export default function Hero(props) {
   const heroRef = useRef();
 
   useEffect(() => {
-    const timeline = gsap.timeline();
-
     ScrollTrigger.create({
-      animation: timeline,
       trigger: heroRef.current,
-      start: '+=300px top',
-      end: 'bottom bottom',
+      start: 'top top',
+      end: 'bottom center-=200',
       scrub: 0.5,
       onUpdate: (self) => {
         if (self.progress.toFixed(3) < 1) {
@@ -236,11 +228,6 @@ export default function Hero(props) {
         }
       },
     });
-
-    if (window.matchMedia('(min-width: 900px)').matches) {
-      timeline.to('#title1', { opacity: 0, duration: 2 });
-      timeline.to('#title2 > span', { opacity: 1, duration: 2 });
-    }
   });
 
   return (
@@ -249,29 +236,27 @@ export default function Hero(props) {
         {Header}
         <ContentGrid>
           <ContentGridCell>
-            <Title1 level={1} id="title1" color="white">
+            <Headline mt="0">
               The condition in which future generations will inherit our planet
               depends on our attitude and the actions we take today.
-            </Title1>
-            <Title2 level={1} id="title2" color="white">
-              <span>
-                It’s time to unlock the world's knowledge and turn a sustainable
-                society into a reality.
-              </span>
-              <ArrowDownLink
-                href="#WelcomeSection"
-                aria-label="To welcome section"
-              >
-                <ArrowDown viewBox="0 0 20 26">
-                  <path
-                    d="M18.6758 16.0547L9.83695 24.8935L0.998112 16.0547"
-                    strokeWidth="2"
-                    strokeLinejoin="round"
-                  />
-                  <line x1="9.80859" y1="24" x2="9.80859" strokeWidth="2" />
-                </ArrowDown>
-              </ArrowDownLink>
-            </Title2>
+            </Headline>
+            <Headline mt="0">
+              It’s time to unlock the world's knowledge and turn a sustainable
+              society into a reality.
+            </Headline>
+            <ArrowDownLink
+              href="#WelcomeSection"
+              aria-label="To welcome section"
+            >
+              <ArrowDown viewBox="0 0 20 26">
+                <path
+                  d="M18.6758 16.0547L9.83695 24.8935L0.998112 16.0547"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                />
+                <line x1="9.80859" y1="24" x2="9.80859" strokeWidth="2" />
+              </ArrowDown>
+            </ArrowDownLink>
           </ContentGridCell>
           <ContentGridCell>
             <GlobeStyled
